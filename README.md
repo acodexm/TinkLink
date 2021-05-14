@@ -1,5 +1,4 @@
-# artificial-challange
-hacker news, puppeteer, react, express,
+# Tink Link integration
 
 1.Build a web application that are using Tink Link for account aggregation.
 2.Display the data so that you count the total amount spent on your favourite merchant during year 2020.

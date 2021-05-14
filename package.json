@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/acodexm/tinklink.git"
+    "url": "git+https://github.com/acodexm/TinkLink.git"
   },
   "author": "acodexm",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/acodexm/tinklink/issues"
+    "url": "https://github.com/acodexm/TinkLink/issues"
   },
-  "homepage": "https://github.com/acodexm/tinklink#readme",
+  "homepage": "https://github.com/acodexm/TinkLink#README",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
