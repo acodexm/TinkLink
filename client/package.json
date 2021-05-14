@@ -1,0 +1,65 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "test:coverage": "yarn test --watchAll false --coverage",
+    "lint": "tsc --noEmit && eslint '*/**/*.{ts,tsx}'",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "yarn lint --quiet --fix",
+    "clear": "rimraf node_modules && rimraf coverage"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "lodash": "^4.17.21",
+    "query-string": "^7.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.16.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "react-select": "^4.3.1",
+    "styled-bootstrap-grid": "^3.1.1",
+    "styled-components": "^5.3.0",
+    "styled-normalize": "^8.0.7",
+    "use-deep-compare-effect": "^1.6.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/react-hooks": "^5.1.2",
+    "@types/lodash": "^4.14.169",
+    "@types/react": "^17.0.5",
+    "@types/react-dom": "^17.0.5",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-select": "^4.0.15",
+    "@types/styled-components": "^5.1.9",
+    "react-test-renderer": "^17.0.2",
+    "typescript": "^4.2.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "../.eslintrc.js"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
