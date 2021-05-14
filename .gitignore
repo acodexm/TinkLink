@@ -6,4 +6,4 @@ yarn.lock
 yarn-error.log
 export
 build
-**.snap
+.eslintcache

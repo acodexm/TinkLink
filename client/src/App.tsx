@@ -24,7 +24,7 @@ const App: FunctionComponent<Loading> = ({ hideLoader }) => {
       <QueryClientProvider client={queryClient}>
         <Normalize />
         <BaseCSS />
-        <Header />
+        <Header>tink link</Header>
         <Switch>
           <Route path={"/callback"} component={Callback} />
           <Route path={"/account"} component={Main} />

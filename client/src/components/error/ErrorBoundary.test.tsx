@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { renderWithProviders } from "../../helpers/RTL";
+import { render } from "../../helpers/RTL";
 import ErrorBoundary from "./ErrorBoundary";
 
 const warning = `I'm dangerous`;
@@ -9,7 +9,7 @@ const Bomb: FunctionComponent<{ explode?: boolean }> = ({ explode }) => {
   return <div>{warning}</div>;
 };
 const renderBomb = (explode?: boolean) =>
-  renderWithProviders(
+  render(
     <ErrorBoundary>
       <Bomb explode={explode} />
     </ErrorBoundary>,

@@ -1,32 +1,42 @@
 {
   "name": "tink-link",
   "version": "1.0.0",
-  "description": "hacker news, puppeteer, react, express,",
-  "main": "index.js",
+  "description": "Tink Link integration",
+  "main": "server/dist/index.js",
   "scripts": {
     "test": "cd ./client && yarn test:coverage && cd ../server && yarn test:coverage",
     "clear": "rimraf node_modules && cd ./server && yarn clear && cd ../client && yarn clear",
-    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
     "install": "cd ./server && yarn && cd ../client && yarn",
     "start": "concurrently \"cd ./server && yarn dev\" \"cd ./client && yarn start\"",
-    "format": "prettier --write \"{client,server}/src/**/*.{js,jsx,ts,tsx}\""
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
+    "type:check": "tsc --noEmit",
+    "postinstall": "test -n \"$SKIP_HUSKY\" || husky install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/acodexm/artificial-challange.git"
+    "url": "git+https://github.com/acodexm/tinklink.git"
   },
   "author": "acodexm",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/acodexm/artificial-challange/issues"
+    "url": "https://github.com/acodexm/tinklink/issues"
   },
-  "homepage": "https://github.com/acodexm/artificial-challange#readme",
+  "homepage": "https://github.com/acodexm/tinklink#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "dependencies": {
     "concurrently": "^5.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
     "@typescript-eslint/eslint-plugin": "4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
+    "commitizen": "4.2.3",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-compat": "^3.8.0",
@@ -34,6 +44,7 @@
     "eslint-plugin-react": "^7.21.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unicorn": "^22.0.0",
+    "husky": "^5.1.2",
     "prettier": "^2.1.2",
     "typescript": "^4.2.4"
   }
