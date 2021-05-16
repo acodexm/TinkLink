@@ -59,6 +59,7 @@ module.exports = {
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-interface": 0,
     "@typescript-eslint/no-parameter-properties": ["error", { allows: ["public"] }],
     "keyword-spacing": [
@@ -94,6 +95,8 @@ module.exports = {
       { blankLine: "always", prev: ["let", "const"], next: "*" },
       { blankLine: "any", prev: ["let", "const"], next: ["let", "const"] },
       { blankLine: "always", prev: "block-like", next: "return" },
+      { blankLine: "always", prev: "*", next: "export" },
+      { blankLine: "any", prev: "export", next: "export" },
     ],
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": [
@@ -134,7 +137,6 @@ module.exports = {
     "no-useless-catch": "off",
     "no-with": "off",
     "require-atomic-updates": "off",
-
     "no-console": ["error", { allow: ["warn", "error", "info"] }],
   },
 };

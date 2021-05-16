@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from "react-router";
 import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";
 
 interface OwnProps {}
+
 export type State = {
   account: string;
   pageIndex: number;

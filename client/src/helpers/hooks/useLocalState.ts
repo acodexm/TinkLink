@@ -20,4 +20,5 @@ function useLocalState<S>(key: string, initialState: S): [S, Dispatch<SetStateAc
   }, [state]);
   return [state, setState];
 }
+
 export default useLocalState;

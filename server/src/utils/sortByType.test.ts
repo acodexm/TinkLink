@@ -1,4 +1,4 @@
-import { sortByType } from "./utils";
+import { sortByType } from ".";
 
 const data = [
   {

@@ -5,7 +5,7 @@ export type SortingRule = {
   desc?: boolean;
 };
 
-const compareTypes = (a: any, b: any) => {
+const compareTypes = (a: unknown, b: unknown) => {
   if (isString(a) && isString(b)) {
     return a.localeCompare(b);
   } else if (isDate(a) && isDate(b)) {

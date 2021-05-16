@@ -1,23 +1,15 @@
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
 import { authorize, getAccount, getTransaction, getTransactions } from "./controllers";
+import { address, client, domain, port, tinkBaseUrl } from "./static";
 
-dotenv.config();
-const port = process.env.PORT ? Number(process.env.PORT) : 8080;
-const domain = process.env.DOMAIN || "localhost";
-const address = `http://${domain}:${port}`;
 const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://api.tink.se",
-  "https://autocomplete.clearbit.com",
-];
+const allowedOrigins = [client, tinkBaseUrl, "https://autocomplete.clearbit.com"];
 
 app.use(
   cors({
