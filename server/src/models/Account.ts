@@ -1,6 +1,5 @@
 import mongoose, { Document } from "mongoose";
 
-import { TransactionData } from "./Transaction";
 import { CurrencyCode, Money } from "./types";
 
 export type AccountData = {
@@ -45,15 +44,12 @@ export type AccountData = {
 };
 
 const AccountSchema = new mongoose.Schema({
-  transactions: Array,
   account: Object,
-  accountId: String,
 });
 
-interface Account extends Document {
-  transactions: TransactionData[];
+interface AccountModel extends Document {
   account: AccountData;
   accountId: string;
 }
 
-export const Account = mongoose.model<Account>("account", AccountSchema);
+export const Accounts = mongoose.model<AccountModel>("accounts", AccountSchema);

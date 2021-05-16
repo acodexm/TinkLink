@@ -46,3 +46,41 @@ export type TransactionData = {
   partnerPayload: unknown;
   userModified: boolean;
 };
+type PeriodAmount = {
+  key: string;
+  value: Money;
+};
+type Category = string; //"expenses:food.restaurants"
+
+export type SearchQuery = {
+  accounts?: string[];
+  categories?: Category[];
+  externalIds?: string[];
+  minAmount?: Money;
+  maxAmount?: Money;
+  endDate?: number;
+  limit?: number;
+  offset?: number;
+  order?: "DESC" | "ASC";
+  queryString?: string;
+  sort?: "DATE" | "SCORE" | "DATE" | "ACCOUNT" | "DESCRIPTION" | "AMOUNT" | "CATEGORY";
+  startDate?: string;
+  transactionId?: string;
+  includeUpcoming?: boolean;
+  lastTransactionId?: string;
+};
+
+export type SearchData = {
+  count: number;
+  metrics: {
+    COUNT: number;
+    NET: Money;
+    SUM: Money;
+    AVG: Money;
+    CATEGORIES: Record<string, number>;
+  };
+  periodAmounts: PeriodAmount[];
+  query: SearchQuery;
+  results: TransactionData[];
+  net: Money;
+};

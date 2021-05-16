@@ -1,24 +1,11 @@
 import { RequestHandler } from "express";
 
-import { Authorize } from "../models";
+import { Auth } from "../models";
 import { tinkBaseUrl } from "../static";
 import { makeEncodedBody } from "../utils";
 import { handleResponse } from "../utils/handleResponse";
-import { encodedCT, v1 } from "./api";
-
-type ResponseTokenSuccess = {
-  token_type: string;
-  expires_in: number;
-  access_token: string;
-  refresh_token: string;
-  scope: string;
-  id_hint: string;
-};
-type ResponseTokenFailure = {
-  errorDetails?: string;
-  errorMessage: string;
-  errorCode: string;
-};
+import { encodedCT, v1 } from "./helpers/api";
+import { ResponseTokenFailure, ResponseTokenSuccess } from "./helpers/types";
 
 export const authorize: RequestHandler = async (req, res) => {
   const { clientId, clientSecret, code } = req.body;
@@ -40,7 +27,7 @@ export const authorize: RequestHandler = async (req, res) => {
     return res.json(error);
   }
   if (token) {
-    new Authorize({ clientId, token }).save();
+    new Auth({ clientId, token, timestamp: new Date() }).save();
     return res.status(200);
   }
 

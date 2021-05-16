@@ -9,11 +9,12 @@ export type AuthData = {
   id_hint: string;
 };
 
-interface Auth extends Document {
+export interface AuthModel extends Document {
   clientId: string;
   token: AuthData;
+  timestamp: Date;
 }
 
-const AuthSchema = new mongoose.Schema({ auth: Object });
+const AuthSchema = new mongoose.Schema({ clientId: String, token: Object, timestamp: Date });
 
-export const Authorize = mongoose.model<Auth>("auth", AuthSchema);
+export const Auth = mongoose.model<AuthModel>("auth", AuthSchema);

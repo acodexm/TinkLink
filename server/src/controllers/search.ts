@@ -1,27 +1,28 @@
 import { RequestHandler } from "express";
 
-import { AccountData } from "../models";
 import { tinkBaseUrl } from "../static";
 import { handleResponse } from "../utils/handleResponse";
+import { SearchData } from "./../models";
+import { makeEncodedBody } from "./../utils/makeEncodedBody";
 import { v1 } from "./helpers/api";
 import { executeAuthorized } from "./helpers/executeAuthorized";
 
-type AccountResponseSuccess = AccountData;
-
-export const getAccount: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret } = req.params;
+export const search: RequestHandler = async (req, res) => {
+  const { clientId, clientSecret, searchQuery } = req.body;
 
   executeAuthorized(res, { clientId, clientSecret }, async token => {
-    const response = await fetch(`${tinkBaseUrl}${v1}/accounts/list`, {
+    const response = await fetch(`${tinkBaseUrl}${v1}/search`, {
+      method: "POST",
+      body: makeEncodedBody(searchQuery),
       headers: { Authorization: `Bearer ${token.access_token}` },
     });
-    const [accounts, error] = await handleResponse<AccountResponseSuccess>(response);
+    const [transactions, error] = await handleResponse<SearchData>(response);
 
     if (error) {
       return res.json(error);
     }
-    if (accounts) {
-      return res.json({ accounts });
+    if (transactions) {
+      return res.json({ transactions });
     }
 
     return res.status(500).json({ message: "unexpected error" });
