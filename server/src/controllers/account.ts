@@ -1,10 +1,11 @@
 import { RequestHandler } from "express";
+import fetch from "node-fetch";
 
 import { AccountData } from "../models";
 import { tinkBaseUrl } from "../static";
-import { handleResponse } from "../utils/handleResponse";
 import { v1 } from "./helpers/api";
 import { executeAuthorized } from "./helpers/executeAuthorized";
+import { handleResponse } from "./helpers/handleResponse";
 
 type AccountResponseSuccess = AccountData;
 

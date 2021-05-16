@@ -6,10 +6,11 @@ import { Normalize } from "styled-normalize";
 
 import Auth from "./components/Auth/Auth";
 import Callback from "./components/Callback/Callback";
-import ErrorBoundary from "./components/error/ErrorBoundary";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import NotFound from "./components/NotFound";
+import paths from "./const/paths";
 
 interface Loading {
   hideLoader(): void;
@@ -17,7 +18,7 @@ interface Loading {
 const queryClient = new QueryClient();
 
 const App: FunctionComponent<Loading> = ({ hideLoader }) => {
-  useEffect(hideLoader, []);
+  useEffect(hideLoader, [hideLoader]);
 
   return (
     <ErrorBoundary>
@@ -26,9 +27,9 @@ const App: FunctionComponent<Loading> = ({ hideLoader }) => {
         <BaseCSS />
         <Header>tink link</Header>
         <Switch>
-          <Route path={"/callback"} component={Callback} />
-          <Route path={"/account"} component={Main} />
-          <Route exact path={"/"} component={Auth} />
+          <Route path={paths.Callback} component={Callback} />
+          <Route path={paths.Main} component={Main} />
+          <Route exact path={paths.Auth} component={Auth} />
           <Route component={NotFound} />
         </Switch>
       </QueryClientProvider>

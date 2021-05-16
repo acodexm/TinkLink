@@ -1,11 +1,16 @@
 import { RequestHandler } from "express";
+import fetch from "node-fetch";
 
 import { Auth } from "../models";
 import { tinkBaseUrl } from "../static";
-import { makeEncodedBody } from "../utils";
-import { handleResponse } from "../utils/handleResponse";
-import { encodedCT, v1 } from "./helpers/api";
-import { ResponseTokenFailure, ResponseTokenSuccess } from "./helpers/types";
+import {
+  encodedCT,
+  handleResponse,
+  makeEncodedBody,
+  ResponseTokenFailure,
+  ResponseTokenSuccess,
+  v1,
+} from "./helpers";
 
 export const authorize: RequestHandler = async (req, res) => {
   const { clientId, clientSecret, code } = req.body;

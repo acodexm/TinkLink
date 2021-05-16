@@ -3,8 +3,6 @@ import { RouteComponentProps, withRouter } from "react-router";
 
 import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";
 
-interface OwnProps {}
-
 export type State = {
   account: string;
   pageIndex: number;
@@ -12,9 +10,8 @@ export type State = {
   sortBy: string;
   desc: boolean;
 };
-type Props = OwnProps & RouteComponentProps;
 
-const Main: FunctionComponent<Props> = () => {
+const Main: FunctionComponent<RouteComponentProps> = () => {
   useQueryAsState<State>({
     account: "",
     pageIndex: 0,

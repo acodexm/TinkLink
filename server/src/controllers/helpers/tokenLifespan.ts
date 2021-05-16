@@ -1,8 +1,10 @@
+import fetch from "node-fetch";
+
 import { Auth, AuthModel } from "../../models";
 import { tinkBaseUrl } from "../../static";
-import { makeEncodedBody } from "../../utils";
-import { handleResponse } from "../../utils/handleResponse";
 import { encodedCT, v1 } from "./api";
+import { handleResponse } from "./handleResponse";
+import { makeEncodedBody } from "./makeEncodedBody";
 import { Credentials, ResponseTokenFailure, ResponseTokenSuccess } from "./types";
 
 export const checkIfNotExpired = (

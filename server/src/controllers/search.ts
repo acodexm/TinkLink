@@ -1,11 +1,10 @@
 import { RequestHandler } from "express";
+import fetch from "node-fetch";
 
 import { tinkBaseUrl } from "../static";
-import { handleResponse } from "../utils/handleResponse";
 import { SearchData } from "./../models";
-import { makeEncodedBody } from "./../utils/makeEncodedBody";
-import { v1 } from "./helpers/api";
-import { executeAuthorized } from "./helpers/executeAuthorized";
+import { executeAuthorized, handleResponse, v1 } from "./helpers";
+import { makeEncodedBody } from "./helpers/makeEncodedBody";
 
 export const search: RequestHandler = async (req, res) => {
   const { clientId, clientSecret, searchQuery } = req.body;
