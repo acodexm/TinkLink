@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 
 import { render } from "../../helpers/RTL";
 import ErrorBoundary from "./ErrorBoundary";
 
 const warning = `I'm dangerous`;
-const Bomb: FunctionComponent<{ explode?: boolean }> = ({ explode }) => {
+const Bomb: FC<{ explode?: boolean }> = ({ explode }) => {
   if (explode) throw new Error("Boom");
   return <div>{warning}</div>;
 };
@@ -14,12 +14,17 @@ const renderBomb = (explode?: boolean) =>
       <Bomb explode={explode} />
     </ErrorBoundary>,
   );
+const mockLog = jest.fn();
 
 describe("checks global error handler", () => {
-  it("chatches error", () => {
+  beforeAll(() => {
+    console.error = mockLog;
+  });
+  it("catches error", () => {
     const { getByText } = renderBomb(true);
 
     expect(getByText("Error occurred :(")).toBeVisible();
+    expect(mockLog).toBeCalled();
   });
   it("renders children", () => {
     const { getByText } = renderBomb();

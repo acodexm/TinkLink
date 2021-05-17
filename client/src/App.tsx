@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Switch } from "react-router-dom";
 import { BaseCSS } from "styled-bootstrap-grid";
 import { Normalize } from "styled-normalize";
@@ -15,24 +14,21 @@ import paths from "./const/paths";
 interface Loading {
   hideLoader(): void;
 }
-const queryClient = new QueryClient();
 
 const App: FunctionComponent<Loading> = ({ hideLoader }) => {
   useEffect(hideLoader, [hideLoader]);
 
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <Normalize />
-        <BaseCSS />
-        <Header>tink link</Header>
-        <Switch>
-          <Route path={paths.Callback} component={Callback} />
-          <Route path={paths.Main} component={Main} />
-          <Route exact path={paths.Auth} component={Auth} />
-          <Route component={NotFound} />
-        </Switch>
-      </QueryClientProvider>
+      <Normalize />
+      <BaseCSS />
+      <Header>tink link</Header>
+      <Switch>
+        <Route path={paths.Callback} component={Callback} />
+        <Route path={paths.Main} component={Main} />
+        <Route exact path={paths.Auth} component={Auth} />
+        <Route component={NotFound} />
+      </Switch>
     </ErrorBoundary>
   );
 };
