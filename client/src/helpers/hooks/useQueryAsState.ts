@@ -1,5 +1,5 @@
 import { assign } from "lodash";
-import qs from "query-string";
+import qs from "qs";
 import { useCallback, useMemo } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -10,15 +10,14 @@ function useQueryAsState<S extends Record<string, string | string[] | number | n
 ): [S, (updatedParams: Partial<S>) => void] {
   const { pathname, search } = useLocation();
   const history = useHistory();
-  const params = qs.parse(search, { parseBooleans: true, parseNumbers: true });
+  const params = qs.parse(search);
 
   const updateQuery = useCallback(
     (updatedParams: Partial<S>) => {
       assign(params, updatedParams);
       history.replace(
         `${pathname}?${qs.stringify(params, {
-          skipEmptyString: true,
-          skipNull: true,
+          skipNulls: true,
         })}`,
       );
     },

@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import NotFound from "./components/NotFound";
 import paths from "./const/paths";
 import Layout from "./Layout";
+import Account from "./pages/Account";
 import Auth from "./pages/Auth/Auth";
 import Callback from "./pages/Callback/Callback";
 import Main from "./pages/Main";
@@ -27,7 +28,7 @@ const App: FunctionComponent<Loading> = ({ hideLoader }) => {
       <Layout>
         <Switch>
           <Route path={paths.Callback} component={Callback} />
-          <Route path={`${paths.Account}/:id`} component={Acc} />
+          <Route path={`${paths.Account}/:id`} component={Account} />
           <Route path={paths.Main} component={Main} />
           <Route exact path={paths.Auth} component={Auth} />
           <Route component={NotFound} />

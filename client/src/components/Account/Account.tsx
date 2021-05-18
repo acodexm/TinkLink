@@ -1,13 +1,16 @@
 import * as React from "react";
 
-import { SearchData } from "../../model";
 import { Transactions } from "./Transactions";
 
-const Account: React.VFC<{ searchData: SearchData }> = ({ searchData }) => {
+const Account: React.VFC<{
+  account: V1.Ballance.Response;
+  transactions: V1.Search.TransactionData[];
+}> = ({ account, transactions }) => {
   return (
     <div>
-      <h3>todo</h3>
-      <Transactions transactions={searchData.results} />
+      <h3>available balance:</h3>
+      {account.balances.booked.unscaledValue}
+      <Transactions transactions={transactions} />
     </div>
   );
 };

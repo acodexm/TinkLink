@@ -15,6 +15,9 @@ const Accounts: FC = () => {
     if (data?.nextPageToken) setState(prev => ({ ...prev, pageToken: data.nextPageToken }));
   };
   const { push } = useHistory();
+  const onAccountClick = (id: string) => () => {
+    push(`${paths.Account}/${id}`);
+  };
 
   return (
     <LoadingHandler error={isError} loading={isLoading}>
@@ -35,9 +38,7 @@ const Accounts: FC = () => {
                 name={name}
                 accountId={id}
                 balance={value}
-                onClick={() => {
-                  push(`${paths.Account}/${id}`);
-                }}
+                onClick={onAccountClick(id)}
               />
             ),
           )}

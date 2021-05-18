@@ -99,7 +99,7 @@ declare namespace V1 {
       net: Money;
       periodAmounts: PeriodAmount[];
       query: Query;
-      results: Result[];
+      results: TransactionData[];
     }
   }
   namespace Accounts {
