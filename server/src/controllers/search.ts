@@ -2,8 +2,9 @@ import { RequestHandler } from "express";
 import fetch from "node-fetch";
 
 import { tinkBaseUrl } from "../static";
-import { SearchData } from "./../models";
 import { executeAuthorized, handleResponse, v1 } from "./helpers";
+
+type SearchResponseSuccess = V1.Search.Response;
 
 export const search: RequestHandler = async (req, res) => {
   const { clientId, clientSecret, searchQuery } = req.body;
@@ -17,7 +18,7 @@ export const search: RequestHandler = async (req, res) => {
         "Content-Type": "application/json",
       },
     });
-    const [transactions, error] = await handleResponse<SearchData>(response);
+    const [transactions, error] = await handleResponse<SearchResponseSuccess>(response);
 
     if (error) {
       return res.status(400).json(error);

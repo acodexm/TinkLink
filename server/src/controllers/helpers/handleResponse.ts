@@ -1,5 +1,7 @@
 import { Response } from "node-fetch";
 
+import { genericError } from "./api";
+
 export async function handleResponse<T = unknown, V = unknown>(
   response: Response,
 ): Promise<[T | undefined, V | undefined]> {
@@ -14,5 +16,5 @@ export async function handleResponse<T = unknown, V = unknown>(
     console.error(error);
   }
 
-  return [undefined, { message: "Unexpected error" } as unknown as V];
+  return [undefined, genericError as unknown as V];
 }

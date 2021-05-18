@@ -1,24 +1,30 @@
 import { RequestHandler } from "express";
 import fetch from "node-fetch";
+import qs from "qs";
 
-import { AccountData } from "../models";
 import { tinkBaseUrl } from "../static";
 import { genericError, v1, v2 } from "./helpers/api";
 import { executeAuthorized } from "./helpers/executeAuthorized";
 import { handleResponse } from "./helpers/handleResponse";
 
-type AccountResponseSuccess = AccountData;
+type AccountListResponseSuccess = V2.Accounts.Response;
 type AccountBalanceResponseSuccess = V1.Ballance.Response;
 type AccountTransactionsResponseSuccess = V1.Search.Response;
 
 export const getAccountList: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret } = req.params;
+  const { clientId, clientSecret, pageSize = 5, pageToken } = req.params;
 
   executeAuthorized(res, { clientId, clientSecret }, async token => {
-    const response = await fetch(`${tinkBaseUrl}${v2}/accounts`, {
-      headers: { Authorization: `Bearer ${token.access_token}` },
-    });
-    const [accounts, error] = await handleResponse<AccountResponseSuccess>(response);
+    const response = await fetch(
+      `${tinkBaseUrl}${v2}/accounts${qs.stringify(
+        { pageSize, pageToken },
+        { skipNulls: true, addQueryPrefix: true },
+      )}`,
+      {
+        headers: { Authorization: `Bearer ${token.access_token}` },
+      },
+    );
+    const [accounts, error] = await handleResponse<AccountListResponseSuccess>(response);
 
     if (error) {
       return res.status(400).json(error);
@@ -43,10 +49,12 @@ export const getAccount: RequestHandler = async (req, res) => {
     if (error1) {
       return res.status(400).json(error1);
     }
-
+    const searchQuery: V1.Search.Query = {
+      accounts: [accountId],
+    };
     const res2 = await fetch(`${tinkBaseUrl}${v1}/search`, {
       method: "POST",
-      body: JSON.stringify({ accounts: [accountId] }),
+      body: JSON.stringify(searchQuery),
       headers: {
         Authorization: `Bearer ${token.access_token}`,
         "Content-Type": "application/json",

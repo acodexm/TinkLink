@@ -1,12 +1,12 @@
 import { RequestHandler } from "express";
 import fetch from "node-fetch";
+import qs from "qs";
 
 import { Auth } from "../models";
 import { tinkBaseUrl } from "../static";
 import {
   encodedCT,
   handleResponse,
-  makeEncodedBody,
   ResponseTokenFailure,
   ResponseTokenSuccess,
   v1,
@@ -16,7 +16,7 @@ export const authorize: RequestHandler = async (req, res) => {
   const { clientId, clientSecret, code } = req.body;
   const response = await fetch(`${tinkBaseUrl}${v1}/oauth/token`, {
     method: "POST",
-    body: makeEncodedBody({
+    body: qs.stringify({
       client_id: clientId,
       client_secret: clientSecret,
       code,

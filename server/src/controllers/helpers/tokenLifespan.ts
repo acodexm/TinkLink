@@ -1,10 +1,10 @@
 import fetch from "node-fetch";
+import qs from "qs";
 
 import { Auth, AuthModel } from "../../models";
 import { tinkBaseUrl } from "../../static";
 import { encodedCT, v1 } from "./api";
 import { handleResponse } from "./handleResponse";
-import { makeEncodedBody } from "./makeEncodedBody";
 import { Credentials, ResponseTokenFailure, ResponseTokenSuccess } from "./types";
 
 export const checkIfNotExpired = (
@@ -26,7 +26,7 @@ export const refreshToken = async (
 ) => {
   const response = await fetch(`${tinkBaseUrl}${v1}/oauth/token`, {
     method: "POST",
-    body: makeEncodedBody({
+    body: qs.stringify({
       client_id: clientId,
       client_secret: clientSecret,
       refresh_token: refreshToken,
