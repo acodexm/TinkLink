@@ -26,7 +26,10 @@ export const authorize: RequestHandler = async (req, res) => {
       "Content-Type": encodedCT,
     },
   });
-  const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
+  const [token, error] = await handleResponse<
+    ResponseTokenSuccess,
+    ResponseTokenFailure
+  >(response);
 
   if (error) {
     return res.json(error);

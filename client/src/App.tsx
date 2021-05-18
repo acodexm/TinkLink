@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import NotFound from "./components/NotFound";
 import paths from "./const/paths";
+import { GlobalStyle } from "./styled";
 
 interface Loading {
   hideLoader(): void;
@@ -20,6 +21,7 @@ const App: FunctionComponent<Loading> = ({ hideLoader }) => {
 
   return (
     <ErrorBoundary>
+      <GlobalStyle />
       <Normalize />
       <BaseCSS />
       <Header>tink link</Header>

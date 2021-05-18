@@ -15,6 +15,10 @@ export interface AuthModel extends Document {
   timestamp: Date;
 }
 
-const AuthSchema = new mongoose.Schema({ clientId: String, token: Object, timestamp: Date });
+const AuthSchema = new mongoose.Schema({
+  clientId: String,
+  token: Object,
+  timestamp: Date,
+});
 
 export const Auth = mongoose.model<AuthModel>("auth", AuthSchema);

@@ -28,7 +28,8 @@ const Auth: React.VFC<AuthProps> = () => {
         // "user:web_hooks"
       ].join(",")}
       market={"UK"}
-      locale={"en_US"}>
+      locale={"en_US"}
+    >
       Use Tink Link
     </AuthLink>
   );

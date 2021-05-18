@@ -1,10 +1,19 @@
 import { flatten, isString } from "lodash";
-import React, { FunctionComponent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import React, {
+  FunctionComponent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Select, { ValueType } from "react-select";
 import { Container, Row } from "styled-bootstrap-grid";
 import styled from "styled-components";
 
-import { faSortAmountDown, faSortAmountUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSortAmountDown,
+  faSortAmountUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import useLocalState from "../../helpers/hooks/useLocalState";
@@ -74,13 +83,12 @@ const SearchBar: FunctionComponent<Props> = ({ setSearch, state }) => {
   const [desc, setDesc] = useState(state.desc);
   const [filters, setFilters] = useState<string[]>(flatten([state.filters]));
   const search = useRef<HTMLInputElement>(null);
-  const [selectedOption, setSelectedOption] = useLocalState<ValueType<OptionType, false>>(
-    "CHOSEN_THREAD",
-    {
-      value: state.account,
-      label: "Who is hiring 2020",
-    },
-  );
+  const [selectedOption, setSelectedOption] = useLocalState<
+    ValueType<OptionType, false>
+  >("CHOSEN_THREAD", {
+    value: state.account,
+    label: "Who is hiring 2020",
+  });
 
   const handleChange = (option: ValueType<OptionType, false>) => {
     setSelectedOption(option);
@@ -150,7 +158,12 @@ const SearchBar: FunctionComponent<Props> = ({ setSearch, state }) => {
             <SearchKey key={filter}>
               {filter}{" "}
               <span
-                onClick={() => setFilters(prevState => prevState.filter(f => f !== filter && !!f))}>
+                onClick={() =>
+                  setFilters(prevState =>
+                    prevState.filter(f => f !== filter && !!f),
+                  )
+                }
+              >
                 x
               </span>
             </SearchKey>
@@ -165,7 +178,10 @@ const SearchBar: FunctionComponent<Props> = ({ setSearch, state }) => {
               icon={desc ? faSortAmountDown : faSortAmountUp}
               onClick={() => setDesc(prevState => !prevState)}
             />
-            <select defaultValue={sortBy} onChange={e => setSortBy(e.target.value)}>
+            <select
+              defaultValue={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+            >
               <option value="date">Date</option>
               <option value="salary">Salary</option>
             </select>

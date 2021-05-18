@@ -17,8 +17,10 @@ const Providers: React.FC = ({ children }) => (
     </ThemeProvider>
   </BrowserRouter>
 );
-const renderWithProviders = (ui: React.ReactElement, options?: Omit<RenderOptions, "queries">) =>
-  render(ui, { wrapper: Providers, ...options });
+const renderWithProviders = (
+  ui: React.ReactElement,
+  options?: Omit<RenderOptions, "queries">,
+) => render(ui, { wrapper: Providers, ...options });
 
 export * from "@testing-library/react";
 export { renderWithProviders as render };

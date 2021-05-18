@@ -9,7 +9,11 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = [client, tinkBaseUrl, "https://autocomplete.clearbit.com"];
+const allowedOrigins = [
+  client,
+  tinkBaseUrl,
+  "https://autocomplete.clearbit.com",
+];
 
 app.use(
   cors({
@@ -28,7 +32,9 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("available api: /api/search, /api/transaction/{id}, /api/account, /api/authorize, ");
+  res.send(
+    "available api: /api/search, /api/transaction/{id}, /api/account, /api/authorize, ",
+  );
 });
 app.get("/api/search", search);
 // app.get("/api/transaction/{id}", getTransaction);

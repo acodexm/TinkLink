@@ -5,7 +5,11 @@ import { tinkBaseUrl } from "../../static";
 import { encodedCT, v1 } from "./api";
 import { handleResponse } from "./handleResponse";
 import { makeEncodedBody } from "./makeEncodedBody";
-import { Credentials, ResponseTokenFailure, ResponseTokenSuccess } from "./types";
+import {
+  Credentials,
+  ResponseTokenFailure,
+  ResponseTokenSuccess,
+} from "./types";
 
 export const checkIfNotExpired = (
   { token: { expires_in, refresh_token }, timestamp }: AuthModel,
@@ -36,7 +40,10 @@ export const refreshToken = async (
       "Content-Type": encodedCT,
     },
   });
-  const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
+  const [token, error] = await handleResponse<
+    ResponseTokenSuccess,
+    ResponseTokenFailure
+  >(response);
 
   if (error) {
     console.error(error);

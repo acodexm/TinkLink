@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { render } from "../../helpers/RTL";
 import ErrorBoundary from "./ErrorBoundary";
 
-const warning = `I'm dangerous`;
+const warning = "I'm dangerous";
 const Bomb: FC<{ explode?: boolean }> = ({ explode }) => {
   if (explode) throw new Error("Boom");
   return <div>{warning}</div>;
