@@ -29,7 +29,7 @@ export const authorize: RequestHandler = async (req, res) => {
   const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
 
   if (error) {
-    return res.status(500).json(error);
+    return res.status(400).json(error);
   }
   if (token) {
     new Auth({ clientId, token, timestamp: new Date() }).save();

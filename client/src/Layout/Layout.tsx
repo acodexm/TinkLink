@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Container, Row } from "styled-bootstrap-grid";
 
-import { Header } from "../Header";
+import { Header } from "../components/Header";
 
 export interface LayoutProps {}
 

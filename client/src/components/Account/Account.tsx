@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { SearchData } from "../../../model";
+import { SearchData } from "../../model";
 import Transactions from "../Transactions/Transactions";
 
 const Account: React.VFC<{ searchData: SearchData }> = ({ searchData }) => {

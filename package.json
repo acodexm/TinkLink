@@ -9,7 +9,7 @@
     "install": "cd ./server && yarn && cd ../client && yarn",
     "start": "concurrently \"cd ./server && yarn dev\" \"cd ./client && yarn start\"",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
-    "type:check": "tsc --noEmit",
+    "type:check": "cd client && tsc --noEmit && cd ../server && tsc --noEmit",
     "postinstall": "test -n \"$SKIP_HUSKY\" || husky install"
   },
   "repository": {

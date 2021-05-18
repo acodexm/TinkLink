@@ -2,10 +2,10 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 
-import { getAuthorized } from "../../api/auth/getAurhorized";
+import { getAuthorized } from "../../api/auth/getAuthorized";
+import { LoadingHandler } from "../../components/LoadingHandler";
 import paths from "../../const/paths";
 import useQuerySearch from "../../helpers/hooks/useQuerySearch";
-import { LoadingHandler } from "../LoadingHandler";
 
 const Callback: React.VFC = () => {
   const code = useQuerySearch("code");

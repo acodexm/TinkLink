@@ -3,13 +3,13 @@ import { Route, Switch } from "react-router-dom";
 import { BaseCSS } from "styled-bootstrap-grid";
 import { Normalize } from "styled-normalize";
 
-import Auth from "./components/Auth/Auth";
-import Callback from "./components/Callback/Callback";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import Layout from "./components/Layout";
-import Main from "./components/Main";
 import NotFound from "./components/NotFound";
 import paths from "./const/paths";
+import Layout from "./Layout";
+import Auth from "./pages/Auth/Auth";
+import Callback from "./pages/Callback/Callback";
+import Main from "./pages/Main";
 import { GlobalStyle } from "./styled";
 
 interface Loading {

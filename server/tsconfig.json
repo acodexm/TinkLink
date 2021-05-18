@@ -3,7 +3,8 @@
     "files": true
   },
   "files": [
-    "../typings/api.d.ts"
+    "../typings/api.v1.d.ts",
+    "../typings/api.v2.d.ts"
   ],
   "compilerOptions": {
     "allowJs": true,

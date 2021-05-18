@@ -3,15 +3,14 @@ import { useQuery } from "react-query";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import { searchQuery } from "../../api/search/searchQuery";
+import Account from "../../components/Account/Account";
+import { LoadingHandler } from "../../components/LoadingHandler";
 // import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";
 import { SearchQuery } from "../../model";
-import { LoadingHandler } from "../LoadingHandler";
-import Account from "./Account/Account";
 
 const Main: FunctionComponent<RouteComponentProps> = () => {
   const [state] = useState<SearchQuery>({
     endDate: new Date().setDate(new Date().getMonth() - 1),
-    limit: 10,
     order: "DESC",
     sort: "DATE",
   });

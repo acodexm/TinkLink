@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { formatCurrency, formatDate, formatNumber } from "../../../helpers/format";
-import { TransactionData } from "../../../model";
+import { formatCurrency, formatDate, formatNumber } from "../../helpers/format";
+import { TransactionData } from "../../model";
 
 export interface TransactionsProps {
   transactions: TransactionData[];

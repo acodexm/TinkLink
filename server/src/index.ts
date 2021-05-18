@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 
-import { authorize, getAccount, search } from "./controllers";
+import { authorize, getAccountList, search } from "./controllers";
 import { address, client, domain, port, tinkBaseUrl } from "./static";
 
 const app = express();
@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 });
 app.post("/api/search", search);
 // app.get("/api/transaction/{id}", getTransaction);
-app.get("/api/account", getAccount);
+app.get("/api/account", getAccountList);
 app.post("/api/authorize", authorize);
 
 mongoose.connect(

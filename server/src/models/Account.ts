@@ -1,6 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-export type AccountData = TinkLinkApi.Accounts;
+export type AccountData = V1.Accounts.Response;
 
 const AccountSchema = new mongoose.Schema({
   account: Object,

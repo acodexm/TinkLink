@@ -1,3 +1,3 @@
-export type TransactionData = TinkLinkApi.TransactionData;
-export type SearchQuery = TinkLinkApi.Query;
-export type SearchData = TinkLinkApi.Search;
+export type TransactionData = V1.Search.TransactionData;
+export type SearchQuery = V1.Search.Query;
+export type SearchData = V1.Search.Response;

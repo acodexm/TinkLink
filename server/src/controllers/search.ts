@@ -20,7 +20,7 @@ export const search: RequestHandler = async (req, res) => {
     const [transactions, error] = await handleResponse<SearchData>(response);
 
     if (error) {
-      return res.status(500).json(error);
+      return res.status(400).json(error);
     }
     if (transactions) {
       return res.json(transactions);
