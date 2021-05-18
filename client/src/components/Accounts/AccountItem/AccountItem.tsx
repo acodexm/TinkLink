@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
   name: string;
-  balance: Money;
+  balance: V2.Accounts.Value;
   accountId: string;
 };
 const AccountItem: React.VFC<Props> = props => {

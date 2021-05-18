@@ -27,6 +27,7 @@ const App: FunctionComponent<Loading> = ({ hideLoader }) => {
       <Layout>
         <Switch>
           <Route path={paths.Callback} component={Callback} />
+          <Route path={`${paths.Account}/:id`} component={Acc} />
           <Route path={paths.Main} component={Main} />
           <Route exact path={paths.Auth} component={Auth} />
           <Route component={NotFound} />

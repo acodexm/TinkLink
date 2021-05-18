@@ -7,7 +7,7 @@ import { executeAuthorized, genericError, handleResponse, v2 } from "./helpers";
 
 type TransactionListResponseSuccess = V2.Transactions.Response;
 
-export const getTransactionList: RequestHandler = async (req, res) => {
+export const getTransactions: RequestHandler = async (req, res) => {
   const { clientId, clientSecret, accountId, pageSize = 30, pageToken } = req.params;
 
   executeAuthorized(res, { clientId, clientSecret }, async token => {

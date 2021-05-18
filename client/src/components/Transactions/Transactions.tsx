@@ -1,40 +1,35 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 
-import { formatCurrency, formatDate, formatNumber } from "../../helpers/format";
-import { TransactionData } from "../../model";
+import { getTransactions } from "../../api/transactions/getTransactions";
+import { Pagination } from "../../api/types";
+import { LoadingHandler } from "../LoadingHandler";
+import TransactionItem from "./TransactionItem";
 
-export interface TransactionsProps {
-  transactions: TransactionData[];
-}
+type Props = { accountId?: string };
+type State = Pagination & Props;
+const Transactions: React.VFC<Props> = ({ accountId }) => {
+  const [state, setState] = useState<State>({ pageSize: 30, accountId });
+  const { isError, isLoading, data } = useQuery(["transactions", state], () =>
+    getTransactions(state),
+  );
+  const onNextClick = () => {
+    if (data?.nextPageToken) setState(prev => ({ ...prev, pageToken: data.nextPageToken }));
+  };
 
-const Transactions: React.VFC<TransactionsProps> = ({ transactions }) => {
-  if (transactions.length === 0)
-    return (
-      <div>
-        <h4>Some of your transactions</h4>
-        <div>
-          <p>You don’t seem to have any transactions.</p>
-        </div>
-      </div>
-    );
   return (
-    <div>
-      <h4>Some of your transactions</h4>
-      <ul>
-        {transactions.map(
-          ({ transaction: { description, id, date, amount, currencyDenominatedAmount } }) => (
-            <li key={id}>
-              <b>{formatDate(new Date(date))}</b>
-              <br />
-              {description}
-              <br />
-              {formatNumber(amount)} {formatCurrency(currencyDenominatedAmount?.currencyCode)}
-              <br />
-            </li>
-          ),
-        )}
-      </ul>
-    </div>
+    <LoadingHandler loading={isLoading} error={isError}>
+      {data && (
+        <>
+          {data.transactions.map(({ id, amount, descriptions }) => (
+            <TransactionItem key={id} amount={amount} descriptions={descriptions} />
+          ))}
+          <button onClick={onNextClick} disabled={!data.nextPageToken}>
+            next
+          </button>
+        </>
+      )}
+    </LoadingHandler>
   );
 };
 

@@ -1,5 +1,6 @@
 const paths = {
   Main: "/accounts",
+  Account: "/account",
   Auth: "/",
   Callback: "/callback",
 };

@@ -1,10 +1,19 @@
+import qs from "qs";
+
 import { clientId, clientSecret } from "../../const/credentials";
-import { AccountBalanceData } from "../../model";
 import { handleRequest } from "../handleRequest";
 
-export const getAccountList = async (accountId: string) => {
-  const [data, error] = await handleRequest<AccountBalanceData>(
-    `/account/list?clientId=${clientId}&clientSecret=${clientSecret}&accountId=${accountId}`,
+type AccountResponseSuccess = {
+  account: V1.Ballance.Response;
+  transactions: V1.Search.TransactionData;
+};
+
+export const getAccount = async (accountId: string) => {
+  const [data, error] = await handleRequest<AccountResponseSuccess>(
+    `/account/${qs.stringify(
+      { clientId, clientSecret, accountId },
+      { skipNulls: true, addQueryPrefix: true },
+    )}`,
   );
 
   if (error) return null;
