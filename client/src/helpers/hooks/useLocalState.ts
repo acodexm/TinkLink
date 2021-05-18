@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 
 function getLocalState<S>(key: string, init: S) {
   const value = localStorage.getItem(key);
@@ -9,15 +9,17 @@ function getLocalState<S>(key: string, init: S) {
 
   return init;
 }
-function setLocalState<S>(key: string, state: S) {
-  localStorage.setItem(key, JSON.stringify(state));
-}
+
 function useLocalState<S>(key: string, initialState: S): [S, Dispatch<SetStateAction<S>>] {
   const [state, setState] = useState<S>(getLocalState(key, initialState));
 
+  const setLocalState = useCallback(<S>(key: string, state: S) => {
+    localStorage.setItem(key, JSON.stringify(state));
+  }, []);
+
   useEffect(() => {
     setLocalState(key, state);
-  }, [state]);
+  }, [state, setLocalState, key]);
   return [state, setState];
 }
 

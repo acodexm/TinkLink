@@ -1,14 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-export type AuthData = {
-  token_type: string;
-  expires_in: number;
-  access_token: string;
-  refresh_token: string;
-  scope: string;
-  id_hint: string;
-};
-
+export type AuthData = TinkLinkApi.Auth;
 export interface AuthModel extends Document {
   clientId: string;
   token: AuthData;

@@ -1,26 +1,27 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
+import { useQuery } from "react-query";
 import { RouteComponentProps, withRouter } from "react-router";
 
-import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";
-
-export type State = {
-  account: string;
-  pageIndex: number;
-  filters: string[];
-  sortBy: string;
-  desc: boolean;
-};
+import { searchQuery } from "../../api/search/searchQuery";
+// import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";
+import { SearchQuery } from "../../model";
+import { LoadingHandler } from "../LoadingHandler";
+import Account from "./Account/Account";
 
 const Main: FunctionComponent<RouteComponentProps> = () => {
-  useQueryAsState<State>({
-    account: "",
-    pageIndex: 0,
-    filters: [],
-    sortBy: "date",
-    desc: true,
+  const [state] = useState<SearchQuery>({
+    endDate: new Date().setDate(new Date().getMonth() - 1),
+    limit: 10,
+    order: "DESC",
+    sort: "DATE",
   });
+  const { data, isError, isLoading } = useQuery(["search", state], () => searchQuery(state));
 
-  return <main>todo you are authorized</main>;
+  return (
+    <LoadingHandler error={isError} loading={isLoading}>
+      {data && <Account searchData={data} />}
+    </LoadingHandler>
+  );
 };
 
 export default withRouter(Main);

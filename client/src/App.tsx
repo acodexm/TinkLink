@@ -6,8 +6,8 @@ import { Normalize } from "styled-normalize";
 import Auth from "./components/Auth/Auth";
 import Callback from "./components/Callback/Callback";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
+import Layout from "./components/Layout";
+import Main from "./components/Main";
 import NotFound from "./components/NotFound";
 import paths from "./const/paths";
 import { GlobalStyle } from "./styled";
@@ -24,13 +24,14 @@ const App: FunctionComponent<Loading> = ({ hideLoader }) => {
       <GlobalStyle />
       <Normalize />
       <BaseCSS />
-      <Header>tink link</Header>
-      <Switch>
-        <Route path={paths.Callback} component={Callback} />
-        <Route path={paths.Main} component={Main} />
-        <Route exact path={paths.Auth} component={Auth} />
-        <Route component={NotFound} />
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route path={paths.Callback} component={Callback} />
+          <Route path={paths.Main} component={Main} />
+          <Route exact path={paths.Auth} component={Auth} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
     </ErrorBoundary>
   );
 };

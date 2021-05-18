@@ -16,12 +16,10 @@ export const getAccount: RequestHandler = async (req, res) => {
     const response = await fetch(`${tinkBaseUrl}${v1}/accounts/list`, {
       headers: { Authorization: `Bearer ${token.access_token}` },
     });
-    const [accounts, error] = await handleResponse<AccountResponseSuccess>(
-      response,
-    );
+    const [accounts, error] = await handleResponse<AccountResponseSuccess>(response);
 
     if (error) {
-      return res.json(error);
+      return res.status(500).json(error);
     }
     if (accounts) {
       return res.json({ accounts });

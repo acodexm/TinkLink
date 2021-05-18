@@ -1,11 +1,8 @@
 export async function handleRequest<T = unknown, V = unknown>(
   endpoint: string,
-  options?: RequestInit,
+  options?: any,
 ): Promise<[T | undefined, V | undefined]> {
-  const response = await fetch(
-    process.env.REACT_APP_SERVER_ORIGIN + endpoint,
-    options,
-  );
+  const response = await fetch(process.env.REACT_APP_SERVER_ORIGIN + endpoint, options);
 
   try {
     if (response.status !== 200) {

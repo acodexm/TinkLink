@@ -1,4 +1,10 @@
 {
+  "ts-node": {
+    "files": true
+  },
+  "files": [
+    "../typings/api.d.ts"
+  ],
   "compilerOptions": {
     "allowJs": true,
     "removeComments": true,
@@ -23,7 +29,7 @@
   },
   "compileOnSave": true,
   "include": [
-    "src"
+    "src",
   ],
   "exclude": [
     "node_modules"

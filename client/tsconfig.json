@@ -22,7 +22,8 @@
   },
   "include": [
     ".",
-    "typings"
+    "typings",
+    "../typings/**/*"
   ],
   "exclude": [
     "node_modules"

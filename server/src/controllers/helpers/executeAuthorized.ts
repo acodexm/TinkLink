@@ -18,8 +18,7 @@ export const executeAuthorized = <T = unknown>(
       });
     }
     try {
-      if (checkIfNotExpired(authData[0], credentials))
-        return await execute(authData[0].token);
+      if (checkIfNotExpired(authData[0], credentials)) return await execute(authData[0].token);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "unexpected error" });
