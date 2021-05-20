@@ -7,7 +7,7 @@ type Props = {
 const TransactionItem: React.VFC<Props> = ({ amount, descriptions }) => {
   return (
     <div>
-      {amount}
+      {amount.value.unscaledValue}
       <div>{descriptions?.display}</div>
     </div>
   );

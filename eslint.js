@@ -115,7 +115,7 @@ module.exports = {
     "no-use-before-define": "off",
     "no-unused-vars": "off",
     "no-unexpected-multiline": "error",
-    "@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true }],
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": "off",
     "no-setter-return": 0,
     "no-import-assign": 0,

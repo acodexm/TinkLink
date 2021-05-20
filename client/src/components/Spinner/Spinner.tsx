@@ -15,9 +15,8 @@ const StyledSpinner = styled.img`
   animation: ${spin} 1.5s infinite linear;
 `;
 
-export const Spinner: VFC<{ image: string; width: string }> = ({
-  image,
-  width,
-}) => <StyledSpinner src={image} style={{ width }} alt={"Loading"} />;
+export const Spinner: VFC<{ image: string; width: string }> = ({ image, width }) => (
+  <StyledSpinner src={image} style={{ width }} alt={"Loading"} />
+);
 
 export default Spinner;

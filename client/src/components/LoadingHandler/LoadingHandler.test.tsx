@@ -15,11 +15,7 @@ describe("test loading handler", () => {
 
     expect(content).toBeTruthy();
     rerender(
-      <LoadingHandler
-        error={false}
-        loading={false}
-        preventDisplayContent={true}
-      >
+      <LoadingHandler error={false} loading={false} preventDisplayContent={true}>
         <div>anything</div>
       </LoadingHandler>,
     );
