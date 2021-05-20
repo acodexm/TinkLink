@@ -1,20 +1,17 @@
 import { Response } from "node-fetch";
 
-import { genericError } from "./api";
-
 export async function handleResponse<T = unknown, V = unknown>(
   response: Response,
 ): Promise<[T | undefined, V | undefined]> {
   try {
     if (response.status !== 200) {
-      console.error(response.statusText);
-      return [, (await response.json()) as V];
+      console.error("handleResponse", response.statusText);
+      throw await response.json();
     }
 
     return [(await response.json()) as T, undefined];
   } catch (error: unknown) {
-    console.error(error);
+    console.error("handleResponse", error);
+    return [undefined, error as V];
   }
-
-  return [undefined, genericError as unknown as V];
 }

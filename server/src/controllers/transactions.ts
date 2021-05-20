@@ -8,9 +8,9 @@ import { executeAuthorized, genericError, handleResponse, v2 } from "./helpers";
 type TransactionListResponseSuccess = V2.Transactions.Response;
 
 export const getTransactions: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret, accountId, pageSize = 30, pageToken } = req.params;
+  const { accountId, pageSize = 30, pageToken } = req.query;
 
-  executeAuthorized(res, { clientId, clientSecret }, async token => {
+  executeAuthorized(res, req.headers.authorization, async token => {
     const response = await fetch(
       `${tinkBaseUrl}${v2}/transactions${qs.stringify(
         { pageSize, pageToken, accountIdIn: [accountId] },

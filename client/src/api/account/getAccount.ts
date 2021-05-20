@@ -1,6 +1,5 @@
 import qs from "qs";
 
-import { clientId, clientSecret } from "../../const/credentials";
 import { handleRequest } from "../handleRequest";
 
 type AccountResponseSuccess = {
@@ -10,10 +9,7 @@ type AccountResponseSuccess = {
 
 export const getAccount = async (accountId: string) => {
   const [data, error] = await handleRequest<AccountResponseSuccess>(
-    `/account/${qs.stringify(
-      { clientId, clientSecret, accountId },
-      { skipNulls: true, addQueryPrefix: true },
-    )}`,
+    `/account/${qs.stringify({ accountId }, { skipNulls: true, addQueryPrefix: true })}`,
   );
 
   if (error) return null;

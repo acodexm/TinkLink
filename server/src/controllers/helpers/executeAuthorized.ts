@@ -1,27 +1,39 @@
 import { Response } from "express";
 
 import { Auth, AuthData } from "../../models";
+import { genericError, noClientIdError } from "./api";
+import { getClientId } from "./getClientId";
 import { checkIfNotExpired } from "./tokenLifespan";
-import { Credentials } from "./types";
 
-export const executeAuthorized = <T = unknown>(
+export const executeAuthorized = (
   res: Response,
-  credentials: Credentials,
-  execute: (token: AuthData) => Promise<T>,
+  authHeader: string | undefined,
+  execute: (token: AuthData) => void,
 ) => {
-  Auth.find({ clientId: credentials.clientId }, async (err, authData) => {
-    if (err) return res.status(500).json(err);
-    if (!authData || authData.length === 0) {
-      return res.status(401).json({
-        key: "no.result",
-        message: "Unauthorized",
-      });
-    }
-    try {
-      if (checkIfNotExpired(authData[0], credentials)) return await execute(authData[0].token);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "unexpected error" });
-    }
-  });
+  const clientId = getClientId(authHeader);
+
+  if (!clientId) {
+    return res.status(401).json(noClientIdError);
+  }
+
+  return Auth.findOne({ clientId })
+    .sort({ timestamp: -1 })
+    .then(async authData => {
+      if (authData)
+        try {
+          if (checkIfNotExpired(authData, clientId)) await execute(authData.token);
+        } catch (error) {
+          console.error("executeAuthorized", error);
+          res.status(500).json(genericError);
+        }
+      else {
+        res.status(401).json({
+          errorCode: "database.no.result",
+          errorMessage: "Unauthorized",
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
 };

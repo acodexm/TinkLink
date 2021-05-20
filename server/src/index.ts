@@ -3,7 +3,9 @@ import express from "express";
 import mongoose from "mongoose";
 
 import { authorize, getAccount, getAccountList, getTransactions, search } from "./controllers";
-import { address, client, domain, port, tinkBaseUrl } from "./static";
+import { address, client, clientSecret, domain, port, tinkBaseUrl } from "./static";
+
+if (!clientSecret) throw new Error("CLIENT SECRET NOT IN ENV");
 
 const app = express();
 

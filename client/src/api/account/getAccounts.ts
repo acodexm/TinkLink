@@ -1,15 +1,11 @@
 import qs from "qs";
 
-import { clientId, clientSecret } from "../../const/credentials";
 import { handleRequest } from "../handleRequest";
 import { Pagination } from "./../types";
 
-export const getAccounts = async (request: Pagination) => {
+export const getAccounts = async (queryParams: Pagination) => {
   const [data, error] = await handleRequest<V2.Accounts.Response>(
-    `/accounts${qs.stringify(
-      { clientId, clientSecret, ...request },
-      { skipNulls: true, addQueryPrefix: true },
-    )}`,
+    `/accounts${qs.stringify(queryParams, { skipNulls: true, addQueryPrefix: true })}`,
   );
 
   if (error) return null;

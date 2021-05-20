@@ -3,17 +3,24 @@ import fetch from "node-fetch";
 import qs from "qs";
 
 import { Auth } from "../models";
-import { tinkBaseUrl } from "../static";
+import { clientSecret, tinkBaseUrl } from "../static";
 import {
   encodedCT,
+  getClientId,
   handleResponse,
   ResponseTokenFailure,
   ResponseTokenSuccess,
   v1,
 } from "./helpers";
+import { genericError, noClientIdError } from "./helpers/api";
 
 export const authorize: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret, code } = req.body;
+  const { code } = req.body;
+  const clientId = getClientId(req.headers.authorization);
+
+  if (!clientId) {
+    return res.status(401).json(noClientIdError);
+  }
   const response = await fetch(`${tinkBaseUrl}${v1}/oauth/token`, {
     method: "POST",
     body: qs.stringify({
@@ -29,12 +36,16 @@ export const authorize: RequestHandler = async (req, res) => {
   const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
 
   if (error) {
-    return res.status(400).json(error);
+    console.error("authorize", error);
+    return res.status(403).json(error);
   }
   if (token) {
-    new Auth({ clientId, token, timestamp: new Date() }).save();
+    console.info("authorize", "new token saved");
+    const auth = new Auth({ clientId, token, timestamp: new Date() });
+
+    await auth.save();
     return res.status(200);
   }
 
-  return res.status(500).json({ message: "unexpected error" });
+  return res.status(500).json(genericError);
 };

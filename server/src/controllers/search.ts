@@ -7,9 +7,9 @@ import { executeAuthorized, handleResponse, v1 } from "./helpers";
 type SearchResponseSuccess = V1.Search.Response;
 
 export const search: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret, searchQuery } = req.body;
+  const { searchQuery } = req.body;
 
-  executeAuthorized(res, { clientId, clientSecret }, async token => {
+  executeAuthorized(res, req.headers.authorization, async token => {
     const response = await fetch(`${tinkBaseUrl}${v1}/search`, {
       method: "POST",
       body: JSON.stringify(searchQuery),
@@ -18,13 +18,13 @@ export const search: RequestHandler = async (req, res) => {
         "Content-Type": "application/json",
       },
     });
-    const [transactions, error] = await handleResponse<SearchResponseSuccess>(response);
+    const [searchData, error] = await handleResponse<SearchResponseSuccess>(response);
 
     if (error) {
       return res.status(400).json(error);
     }
-    if (transactions) {
-      return res.json(transactions);
+    if (searchData) {
+      return res.json(searchData);
     }
 
     return res.status(500).json({ message: "unexpected error" });

@@ -1,8 +1,13 @@
+import { clientId } from "../const/credentials";
+
 export async function handleRequest<T = unknown, V = unknown>(
   endpoint: string,
-  options?: any,
+  options: RequestInit = {},
 ): Promise<[T | undefined, V | undefined]> {
-  const response = await fetch(process.env.REACT_APP_SERVER_ORIGIN + endpoint, options);
+  const response = await fetch(process.env.REACT_APP_SERVER_ORIGIN + endpoint, {
+    ...options,
+    headers: { Authorization: `Basic ${clientId}`, ...(options?.headers ?? {}) },
+  });
 
   try {
     if (response.status !== 200) {

@@ -12,16 +12,19 @@ type AccountBalanceResponseSuccess = V1.Ballance.Response;
 type AccountTransactionsResponseSuccess = V1.Search.Response;
 
 export const getAccountList: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret, pageSize = 5, pageToken } = req.params;
+  const { pageSize = 5, pageToken } = req.query;
 
-  executeAuthorized(res, { clientId, clientSecret }, async token => {
+  executeAuthorized(res, req.headers.authorization, async token => {
     const response = await fetch(
       `${tinkBaseUrl}${v2}/accounts${qs.stringify(
         { pageSize, pageToken },
         { skipNulls: true, addQueryPrefix: true },
       )}`,
       {
-        headers: { Authorization: `Bearer ${token.access_token}` },
+        headers: {
+          Authorization: `Bearer ${token.access_token}`,
+          Accept: "application/json",
+        },
       },
     );
     const [accounts, error] = await handleResponse<AccountListResponseSuccess>(response);
@@ -30,7 +33,7 @@ export const getAccountList: RequestHandler = async (req, res) => {
       return res.status(400).json(error);
     }
     if (accounts) {
-      return res.json({ accounts });
+      return res.json(accounts);
     }
 
     return res.status(500).json(genericError);
@@ -38,9 +41,9 @@ export const getAccountList: RequestHandler = async (req, res) => {
 };
 
 export const getAccount: RequestHandler = async (req, res) => {
-  const { clientId, clientSecret, accountId } = req.params;
+  const accountId = req.query.accountId as string;
 
-  executeAuthorized(res, { clientId, clientSecret }, async token => {
+  executeAuthorized(res, req.headers.authorization, async token => {
     const res1 = await fetch(`${tinkBaseUrl}${v1}/accounts/${accountId}/balances`, {
       headers: { Authorization: `Bearer ${token.access_token}` },
     });
