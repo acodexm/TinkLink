@@ -40,8 +40,12 @@ export const refreshToken = async (clientId: string, refreshToken: string) => {
     return false;
   }
   if (token) {
-    new Auth({ clientId, token, timestamp: new Date() }).save();
-    return true;
+    try {
+      await Auth.findOneAndUpdate({ clientId }, { token, timestamp: new Date() });
+      return true;
+    } catch (dbError) {
+      console.error("[refreshToken] Unable to update database", dbError);
+    }
   }
 
   return false;

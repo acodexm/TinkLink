@@ -9,7 +9,7 @@ type AccountResponseSuccess = {
 
 export const getAccount = async (accountId: string) => {
   const [data, error] = await handleRequest<AccountResponseSuccess>(
-    `/account/${qs.stringify({ accountId }, { skipNulls: true, addQueryPrefix: true })}`,
+    `/account${qs.stringify({ accountId }, { skipNulls: true, addQueryPrefix: true })}`,
   );
 
   if (error) return null;

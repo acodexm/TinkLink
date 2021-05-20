@@ -14,7 +14,7 @@ type AccountTransactionsResponseSuccess = V1.Search.Response;
 export const getAccountList: RequestHandler = async (req, res) => {
   const { pageSize = 5, pageToken } = req.query;
 
-  executeAuthorized(res, req.headers.authorization, async token => {
+  executeAuthorized(res, req.headers.authorization, async ({ token }) => {
     const response = await fetch(
       `${tinkBaseUrl}${v2}/accounts${qs.stringify(
         { pageSize, pageToken },
@@ -43,7 +43,7 @@ export const getAccountList: RequestHandler = async (req, res) => {
 export const getAccount: RequestHandler = async (req, res) => {
   const accountId = req.query.accountId as string;
 
-  executeAuthorized(res, req.headers.authorization, async token => {
+  executeAuthorized(res, req.headers.authorization, async ({ token }) => {
     const res1 = await fetch(`${tinkBaseUrl}${v1}/accounts/${accountId}/balances`, {
       headers: { Authorization: `Bearer ${token.access_token}` },
     });

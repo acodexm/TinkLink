@@ -2,7 +2,14 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 
-import { authorize, getAccount, getAccountList, getTransactions, search } from "./controllers";
+import {
+  authorize,
+  autoAuth,
+  getAccount,
+  getAccountList,
+  getTransactions,
+  search,
+} from "./controllers";
 import { address, client, clientSecret, domain, port, tinkBaseUrl } from "./static";
 
 if (!clientSecret) throw new Error("CLIENT SECRET NOT IN ENV");
@@ -39,6 +46,7 @@ app.get("/api/transactions", getTransactions);
 app.get("/api/accounts", getAccountList);
 app.get("/api/account", getAccount);
 app.post("/api/authorize", authorize);
+app.get("/api/autoAuth", autoAuth);
 
 mongoose.connect(
   "mongodb://localhost:27017/tink-link",

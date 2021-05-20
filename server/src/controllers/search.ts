@@ -9,7 +9,7 @@ type SearchResponseSuccess = V1.Search.Response;
 export const search: RequestHandler = async (req, res) => {
   const { searchQuery } = req.body;
 
-  executeAuthorized(res, req.headers.authorization, async token => {
+  executeAuthorized(res, req.headers.authorization, async ({ token }) => {
     const response = await fetch(`${tinkBaseUrl}${v1}/search`, {
       method: "POST",
       body: JSON.stringify(searchQuery),

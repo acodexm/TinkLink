@@ -1,12 +1,28 @@
 import React from "react";
+import { useQuery } from "react-query";
+import { useHistory } from "react-router";
 
+import { getAutoAuth } from "../../api/auth/getAutoAuth";
+import paths from "../../const/paths";
 import AuthLink from "./AuthLink";
 
 export interface AuthProps {}
 
 const Auth: React.VFC<AuthProps> = () => {
+  const { data } = useQuery(["autoAuth"], getAutoAuth, { retry: false });
+  const { push } = useHistory();
+
   return (
     <>
+      {data && (
+        <button
+          onClick={() => {
+            push(paths.Main);
+          }}
+        >
+          see your account
+        </button>
+      )}
       <AuthLink
         scope={[
           // "account-verification-reports:read",

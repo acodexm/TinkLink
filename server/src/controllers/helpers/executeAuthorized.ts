@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-import { Auth, AuthData } from "../../models";
+import { Auth, AuthModel } from "../../models";
 import { genericError, noClientIdError } from "./api";
 import { getClientId } from "./getClientId";
 import { checkIfNotExpired } from "./tokenLifespan";
@@ -8,7 +8,7 @@ import { checkIfNotExpired } from "./tokenLifespan";
 export const executeAuthorized = (
   res: Response,
   authHeader: string | undefined,
-  execute: (token: AuthData) => void,
+  execute: (token: AuthModel) => void,
 ) => {
   const clientId = getClientId(authHeader);
 
@@ -21,7 +21,7 @@ export const executeAuthorized = (
     .then(async authData => {
       if (authData)
         try {
-          if (checkIfNotExpired(authData, clientId)) await execute(authData.token);
+          if (checkIfNotExpired(authData, clientId)) await execute(authData);
         } catch (error) {
           console.error("executeAuthorized", error);
           res.status(500).json(genericError);
