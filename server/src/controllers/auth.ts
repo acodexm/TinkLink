@@ -64,8 +64,9 @@ export const autoAuth: RequestHandler = (req, res) => {
     const ok = await checkIfNotExpired(token, clientId);
 
     if (ok) {
-      res.status(200).json({ hasAccess: true });
+      return res.status(200).json({ hasAccess: true });
     }
-    res.status(403).json({ hasAccess: false });
+
+    return res.status(403).json({ hasAccess: false });
   });
 };

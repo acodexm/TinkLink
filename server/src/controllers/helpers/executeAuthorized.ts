@@ -21,19 +21,20 @@ export const executeAuthorized = (
     .then(async authData => {
       if (authData)
         try {
-          if (checkIfNotExpired(authData, clientId)) await execute(authData);
+          if (checkIfNotExpired(authData, clientId)) return await execute(authData);
         } catch (error) {
           console.error("executeAuthorized", error);
-          res.status(500).json(genericError);
+          return res.status(500).json(genericError);
         }
       else {
-        res.status(401).json({
+        return res.status(401).json({
           errorCode: "database.no.result",
           errorMessage: "Unauthorized",
         });
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      console.info("FUCK YOU", error);
+      return res.status(500).json(error);
     });
 };

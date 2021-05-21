@@ -1,8 +1,11 @@
 import { RequestHandler } from "express";
+import { omit } from "lodash";
 import fetch from "node-fetch";
 
+import MerchantMapper from "../services/MerchantMapper";
 import { tinkBaseUrl } from "../static";
 import { executeAuthorized, handleResponse, v1 } from "./helpers";
+import { genericError } from "./helpers/api";
 
 type SearchResponseSuccess = V1.Search.Response;
 
@@ -20,8 +23,17 @@ export const search: RequestHandler = async (req, res) => {
     });
     const [searchData, error] = await handleResponse<SearchResponseSuccess>(response);
 
-    if (error) {
-      return res.status(400).json(error);
+    if (error || !searchData) {
+      return res.status(400).json(error || genericError);
+    }
+
+    const mapper = MerchantMapper.getInstance();
+    const transactionData: V1.Search.Response = { ...omit(searchData, "results"), results: [] };
+
+    for (const item of searchData.results) {
+      const newItem = await mapper.mapTransactionV1(item);
+
+      transactionData.results.push(newItem);
     }
     if (searchData) {
       return res.json(searchData);

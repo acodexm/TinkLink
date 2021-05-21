@@ -4,7 +4,8 @@
   },
   "files": [
     "../typings/api.v1.d.ts",
-    "../typings/api.v2.d.ts"
+    "../typings/api.v2.d.ts",
+    "../typings/common.d.ts"
   ],
   "compilerOptions": {
     "allowJs": true,

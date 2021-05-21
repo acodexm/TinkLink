@@ -8,7 +8,6 @@ const AccountSchema = new mongoose.Schema({
 
 interface AccountModel extends Document {
   account: AccountData;
-  accountId: string;
 }
 
 export const Accounts = mongoose.model<AccountModel>("accounts", AccountSchema);

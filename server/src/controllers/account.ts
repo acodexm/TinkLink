@@ -1,7 +1,9 @@
 import { RequestHandler } from "express";
+import { omit } from "lodash";
 import fetch from "node-fetch";
 import qs from "qs";
 
+import MerchantMapper from "../services/MerchantMapper";
 import { tinkBaseUrl } from "../static";
 import { genericError, v1, v2 } from "./helpers/api";
 import { executeAuthorized } from "./helpers/executeAuthorized";
@@ -65,11 +67,19 @@ export const getAccount: RequestHandler = async (req, res) => {
     });
     const [data2, error2] = await handleResponse<AccountTransactionsResponseSuccess>(res2);
 
-    if (error2) {
-      return res.status(400).json(error2);
+    if (error2 || !data2) {
+      return res.status(400).json(error2 || genericError);
     }
-    if (data1 && data2) {
-      return res.json({ account: data1, transactions: data2.results });
+    const mapper = MerchantMapper.getInstance();
+    const transactionData: V1.Search.TransactionData[] = [];
+
+    for (const item of data2.results) {
+      const newItem = await mapper.mapTransactionV1(item);
+
+      transactionData.push(newItem);
+    }
+    if (data1 && transactionData) {
+      return res.json({ account: data1, transactions: transactionData });
     }
 
     return res.status(500).json(genericError);

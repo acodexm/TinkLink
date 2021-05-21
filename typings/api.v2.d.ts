@@ -33,11 +33,6 @@ declare namespace V2 {
       providerTransactionId: string;
     }
 
-    interface MerchantInformation {
-      merchantCategoryCode: string;
-      merchantName: string;
-    }
-
     interface Types {
       financialInstitutionTypeCode: string;
       type: string;

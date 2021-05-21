@@ -91,6 +91,7 @@ declare namespace V1 {
     interface TransactionData {
       transaction: Transaction;
       type: string;
+      merchantInformation?: MerchantInformation;
     }
 
     interface Response {
