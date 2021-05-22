@@ -6,7 +6,7 @@ import { AutocompleteFailure, AutocompleteResponse, MerchantMap } from "./types"
 
 class MerchantMapper {
   private static instance: MerchantMapper;
-  merchantMap: MerchantMap;
+  private merchantMap: MerchantMap;
   constructor() {
     this.merchantMap = {}; //get from database
   }
@@ -47,7 +47,7 @@ class MerchantMapper {
 
     return { transaction: { ...transaction }, type, merchantInfo };
   }
-  async mapTransactionV2(transaction: V2.Transactions.Transaction) {
+  private async mapTransactionV2(transaction: V2.Transactions.Transaction) {
     const merchant = transaction.descriptions.original;
     const merchantInfo: MerchantInformation = { merchantName: merchant };
 

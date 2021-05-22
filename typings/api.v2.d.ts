@@ -2,7 +2,7 @@ declare namespace V2 {
   namespace Transactions {
     interface Value {
       scale: string;
-      unscaledValue: Money;
+      unscaledValue: string;
     }
 
     interface Amount {
@@ -21,7 +21,7 @@ declare namespace V2 {
 
     interface Dates {
       booked: string;
-      value: string;
+      value?: string;
     }
 
     interface Descriptions {
@@ -34,7 +34,7 @@ declare namespace V2 {
     }
 
     interface Types {
-      financialInstitutionTypeCode: string;
+      financialInstitutionTypeCode?: string;
       type: string;
     }
 

@@ -1,27 +1,10 @@
 import { get } from "lodash";
 
-type QueryString = string;
-type SimpleTransaction = {
-  id: string;
-  accountId: string;
-  category: string;
-  type: string;
-  date: number;
-  amount: Currency;
-  merchantInfo?: MerchantInformation;
-};
-type MerchantAggregatedData = {
-  category: string;
-  total: {
-    currencyCode: CurrencyCode;
-    scaledValue: number;
-  };
-  transactions: SimpleTransaction[];
-};
-type FavoriteMerchants = Record<QueryString, MerchantAggregatedData>;
+import { FavoriteMerchants, MerchantAggregatedData, QueryString } from "./types";
+
 class MerchantAggregation {
   private static instance: MerchantAggregation;
-  merchantMap: FavoriteMerchants;
+  private merchantMap: FavoriteMerchants;
   constructor() {
     this.merchantMap = {}; //get from database
   }
