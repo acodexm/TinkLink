@@ -1,44 +1,49 @@
 import { RequestHandler } from "express";
-import { omit } from "lodash";
-import fetch from "node-fetch";
+import { isString } from "lodash";
 
-import MerchantMapper from "../services/MerchantMapper";
-import { tinkBaseUrl } from "../static";
-import { executeAuthorized, handleResponse, v1 } from "./helpers";
-import { genericError } from "./helpers/api";
-
-type SearchResponseSuccess = V1.Search.Response;
+import { dataNotFound, fetchSearchTransactions } from "../api";
+import MerchantAggregation from "../services/MerchantAggregation/MerchantAggregation";
+import { executeAuthorized } from "./helpers";
 
 export const search: RequestHandler = async (req, res) => {
   const { searchQuery } = req.body;
 
   executeAuthorized(res, req.headers.authorization, async ({ token }) => {
-    const response = await fetch(`${tinkBaseUrl}${v1}/search`, {
-      method: "POST",
-      body: JSON.stringify(searchQuery),
-      headers: {
-        Authorization: `Bearer ${token.access_token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    const [searchData, error] = await handleResponse<SearchResponseSuccess>(response);
+    const transactionData = await fetchSearchTransactions(searchQuery, token);
 
-    if (error || !searchData) {
-      return res.status(400).json(error || genericError);
+    if (transactionData) {
+      return res.json(transactionData);
     }
 
-    const mapper = MerchantMapper.getInstance();
-    const transactionData: V1.Search.Response = { ...omit(searchData, "results"), results: [] };
+    return res.status(404).json(dataNotFound);
+  });
+};
 
-    for (const item of searchData.results) {
-      const newItem = await mapper.mapTransactionV1(item);
+export const getAggregatedTransactions: RequestHandler = async (req, res) => {
+  const { category } = req.query;
 
-      transactionData.results.push(newItem);
+  executeAuthorized(res, req.headers.authorization, async ({ token }) => {
+    const aggregator = MerchantAggregation.getInstance();
+
+    if (aggregator.isEmptyData()) {
+      const transactionData = await fetchSearchTransactions(
+        {
+          startDate: 1577833200000,
+          limit: 10000,
+        },
+        token,
+      );
+
+      if (transactionData) {
+        await aggregator.aggregateTransactionsV1(transactionData);
+      }
     }
-    if (searchData) {
-      return res.json(searchData);
+    const result = aggregator.getFavoriteMerchants();
+
+    if (isString(category) && result[category]) {
+      res.json([result[category]]);
     }
 
-    return res.status(500).json({ message: "unexpected error" });
+    return res.json(Object.values(result));
   });
 };

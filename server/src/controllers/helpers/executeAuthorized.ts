@@ -1,7 +1,7 @@
 import { Response } from "express";
 
+import { genericError, noClientIdError } from "../../api";
 import { Auth, AuthModel } from "../../models";
-import { genericError, noClientIdError } from "./api";
 import { getClientId } from "./getClientId";
 import { checkIfNotExpired } from "./tokenLifespan";
 

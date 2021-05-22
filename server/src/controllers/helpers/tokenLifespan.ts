@@ -1,11 +1,5 @@
-import fetch from "node-fetch";
-import qs from "qs";
-
+import { fetchRefreshToken } from "../../api";
 import { Auth, AuthModel } from "../../models";
-import { clientSecret, tinkBaseUrl } from "../../static";
-import { encodedCT, v1 } from "./api";
-import { handleResponse } from "./handleResponse";
-import { ResponseTokenFailure, ResponseTokenSuccess } from "./types";
 
 export const checkIfNotExpired = (
   { token: { expires_in, refresh_token }, timestamp }: AuthModel,
@@ -20,25 +14,9 @@ export const checkIfNotExpired = (
   return true;
 };
 
-export const refreshToken = async (clientId: string, refreshToken: string) => {
-  const response = await fetch(`${tinkBaseUrl}${v1}/oauth/token`, {
-    method: "POST",
-    body: qs.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: refreshToken,
-      grant_type: "refresh_token",
-    }),
-    headers: {
-      "Content-Type": encodedCT,
-    },
-  });
-  const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
+const refreshToken = async (clientId: string, refreshToken: string) => {
+  const token = fetchRefreshToken(clientId, refreshToken);
 
-  if (error) {
-    console.error("refreshToken", error);
-    return false;
-  }
   if (token) {
     try {
       const auth = new Auth({ clientId, token, timestamp: new Date() });

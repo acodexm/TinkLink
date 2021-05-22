@@ -6,3 +6,9 @@ interface MerchantInformation {
   merchantName: string;
   imgSrc?: string;
 }
+
+interface Currency {
+  currencyCode: CurrencyCode;
+  scale: number;
+  unscaledValue: Money;
+}

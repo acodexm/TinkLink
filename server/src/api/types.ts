@@ -1,4 +1,4 @@
-import { AuthData } from "./../../models/Auth";
+import { AuthData } from "../models/Auth";
 
 export type ResponseTokenSuccess = AuthData;
 export type ResponseTokenFailure = {

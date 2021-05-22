@@ -1,46 +1,20 @@
 import { RequestHandler } from "express";
-import fetch from "node-fetch";
-import qs from "qs";
 
-import MerchantMapper from "../services/MerchantMapper";
-import { tinkBaseUrl } from "../static";
-import { executeAuthorized, genericError, handleResponse, v2 } from "./helpers";
-
-type TransactionListResponseSuccess = V2.Transactions.Response;
+import { dataNotFound, fetchTransactions } from "../api";
+import { executeAuthorized } from "./helpers";
 
 export const getTransactions: RequestHandler = async (req, res) => {
-  const { accountId, pageSize = 30, pageToken } = req.query;
+  const accountId = req.query.accountId as string;
+  const pageSize = req.query.pageSize as string;
+  const pageToken = req.query.pageToken as string;
 
   executeAuthorized(res, req.headers.authorization, async ({ token }) => {
-    const response = await fetch(
-      `${tinkBaseUrl}${v2}/transactions${qs.stringify(
-        { pageSize, pageToken, accountIdIn: [accountId] },
-        { skipNulls: true, addQueryPrefix: true },
-      )}`,
-      {
-        headers: { Authorization: `Bearer ${token.access_token}` },
-      },
-    );
-    const [transactions, error] = await handleResponse<TransactionListResponseSuccess>(response);
+    const transactionData = await fetchTransactions(accountId, pageSize, pageToken, token);
 
-    if (error || !transactions) {
-      return res.status(400).json(error);
-    }
-    const mapper = MerchantMapper.getInstance();
-    const transactionData: V2.Transactions.Response = {
-      nextPageToken: transactions.nextPageToken,
-      transactions: [],
-    };
-
-    for (const item of transactions.transactions) {
-      const newItem = await mapper.mapTransactionV2(item);
-
-      transactionData.transactions.push(newItem);
-    }
     if (transactionData) {
       return res.json(transactionData);
     }
 
-    return res.status(500).json(genericError);
+    return res.status(404).json(dataNotFound);
   });
 };

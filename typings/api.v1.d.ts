@@ -1,9 +1,4 @@
 declare namespace V1 {
-  interface Currency {
-    currencyCode: CurrencyCode;
-    scale: number;
-    unscaledValue: Money;
-  }
   namespace Search {
     type CATEGORIES = Record<string, number>;
 
