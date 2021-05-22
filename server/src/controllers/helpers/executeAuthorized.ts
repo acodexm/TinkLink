@@ -34,7 +34,6 @@ export const executeAuthorized = (
       }
     })
     .catch(error => {
-      console.info("FUCK YOU", error);
       return res.status(500).json(error);
     });
 };

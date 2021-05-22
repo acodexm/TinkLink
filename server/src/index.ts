@@ -7,6 +7,7 @@ import {
   autoAuth,
   getAccount,
   getAccountList,
+  getAggregatedTransactions,
   getTransactions,
   search,
 } from "./controllers";
@@ -47,6 +48,7 @@ app.get("/api/accounts", getAccountList);
 app.get("/api/account", getAccount);
 app.post("/api/authorize", authorize);
 app.get("/api/autoAuth", autoAuth);
+app.get("/api/aggregate", getAggregatedTransactions);
 
 mongoose.connect(
   "mongodb://localhost:27017/tink-link",
