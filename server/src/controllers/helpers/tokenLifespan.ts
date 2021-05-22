@@ -1,21 +1,21 @@
 import { fetchRefreshToken } from "../../api";
 import { Auth, AuthModel } from "../../models";
 
-export const checkIfNotExpired = (
+export const checkIfTokenExpired = async (
   { token: { expires_in, refresh_token }, timestamp }: AuthModel,
   clientId: string,
 ) => {
   timestamp.setSeconds(timestamp.getSeconds() + expires_in);
 
   if (new Date() > timestamp) {
-    return refreshToken(clientId, refresh_token);
+    return await refreshToken(clientId, refresh_token);
   }
 
   return true;
 };
 
 const refreshToken = async (clientId: string, refreshToken: string) => {
-  const token = fetchRefreshToken(clientId, refreshToken);
+  const token = await fetchRefreshToken(clientId, refreshToken);
 
   if (token) {
     try {
