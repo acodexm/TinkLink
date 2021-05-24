@@ -10,7 +10,6 @@ export const executeAuthorized = (
   authHeader: string | undefined,
   execute: (token: AuthModel) => void,
 ) => {
-  console.info("execute authorized");
   const clientId = getClientId(authHeader);
 
   if (!clientId) {

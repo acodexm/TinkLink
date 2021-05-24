@@ -81,12 +81,12 @@ declare namespace V1 {
       upcoming: boolean;
       userId: string;
       userModified: boolean;
+      customMerchantInfo: MerchantInformation;
     }
 
     interface TransactionData {
       transaction: Transaction;
       type: string;
-      merchantInformation?: MerchantInformation;
     }
 
     interface Response {

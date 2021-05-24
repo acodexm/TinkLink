@@ -1,5 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 
+import { PaginationQuery } from "../../api/types";
+import { QueryUpdater } from "../../helpers/hooks/useQueryAsState";
+
 type State = {
   pages: Record<string, number>;
   page?: string;
@@ -38,7 +41,7 @@ function reducer(state: State, action: Action): State {
       return state;
   }
 }
-const Pagination: React.FC<{ callback: (pageToken?: string) => void; nextPageToken?: string }> = ({
+const Pagination: React.FC<{ callback: QueryUpdater<PaginationQuery>; nextPageToken?: string }> = ({
   nextPageToken,
   callback,
 }) => {
@@ -54,8 +57,8 @@ const Pagination: React.FC<{ callback: (pageToken?: string) => void; nextPageTok
   };
 
   useEffect(() => {
-    callback(page);
-  }, [page, callback]);
+    callback({ pageToken: page });
+  }, [page]);
 
   return (
     <>

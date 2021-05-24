@@ -1,6 +1,5 @@
-import { assign } from "lodash";
 import qs from "qs";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 export type QueryUpdater<S> = (updatedParams: Partial<S>) => void;
@@ -10,22 +9,34 @@ function useQueryAsState<S extends Record<string, string | string[] | number | n
 ): [S, (updatedParams: Partial<S>) => void] {
   const { pathname, search } = useLocation();
   const history = useHistory();
-  const params = qs.parse(search);
+  const params = qs.parse(search, { ignoreQueryPrefix: true, interpretNumericEntities: true });
 
+  useEffect(() => {
+    const newParams = { ...initState, ...params };
+
+    history.replace(
+      `${pathname}${qs.stringify(newParams, {
+        skipNulls: true,
+        addQueryPrefix: true,
+      })}`,
+    );
+  }, []);
   const updateQuery = useCallback(
     (updatedParams: Partial<S>) => {
-      assign(params, updatedParams);
+      const newParams = { ...params, ...updatedParams };
+
       history.replace(
-        `${pathname}?${qs.stringify(params, {
+        `${pathname}${qs.stringify(newParams, {
           skipNulls: true,
+          addQueryPrefix: true,
         })}`,
       );
     },
-    [params, pathname, history],
+    [params],
   );
-  const queryWithDefault = useMemo(() => assign({}, initState, params), [params, initState]);
+  const state = useMemo(() => ({ ...initState, ...params }), [initState, params]);
 
-  return [queryWithDefault, updateQuery];
+  return [state, updateQuery];
 }
 
 export { useQueryAsState };

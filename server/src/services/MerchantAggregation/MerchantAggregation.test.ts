@@ -13,8 +13,5 @@ describe("MerchantAggregation service", () => {
 
     expect(aggregator.isEmptyData()).toBe(false);
     expect(result).toEqual(expectedResult);
-    expect(result["testtype"].transactions.length).toBe(1);
-    expect(result["testtype2"].transactions.length).toBe(2);
-    expect(result["testdescription"].transactions.length).toBe(3);
   });
 });

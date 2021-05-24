@@ -1,6 +1,7 @@
 import { get } from "lodash";
 
-import { FavoriteMerchants, MerchantAggregatedData, QueryString } from "./types";
+import { scaleValueV1 } from "../../utils/scaleValue";
+import { FavoriteMerchants, QueryString } from "./types";
 
 class MerchantAggregation {
   private static instance: MerchantAggregation;
@@ -16,46 +17,27 @@ class MerchantAggregation {
   private async createOrUpdateData(data: V1.Search.TransactionData, queryKey: QueryString) {
     const category = get(data, queryKey, "not_found").toLowerCase();
 
-    if (!category) throw new Error("aggregateTransactionsV1 invalid queryKey");
+    if (category === "not_found") throw new Error("aggregateTransactionsV1 invalid queryKey");
     const currentData = this.merchantMap[category];
 
     if (currentData) {
       if (
         currentData.total.currencyCode === data.transaction.currencyDenominatedAmount.currencyCode
       ) {
-        currentData.total.scaledValue += scaleValue(data.transaction.currencyDenominatedAmount);
+        currentData.total.scaledValue += scaleValueV1(data.transaction.currencyDenominatedAmount);
       } else {
         throw new Error(
           `aggregateTransactionsV1 currencyCode does not match for category: ${category}`,
         );
       }
-      currentData.transactions.push({
-        id: data.transaction.id,
-        amount: data.transaction.currencyDenominatedAmount,
-        accountId: data.transaction.accountId,
-        category: data.transaction.categoryType,
-        type: data.transaction.type,
-        date: data.transaction.date,
-        merchantInfo: data.merchantInformation,
-      });
     } else {
-      const newData: MerchantAggregatedData = {
+      const newData: FavoriteMerchant = {
         category,
         total: {
           currencyCode: data.transaction.currencyDenominatedAmount.currencyCode,
-          scaledValue: scaleValue(data.transaction.currencyDenominatedAmount),
+          scaledValue: scaleValueV1(data.transaction.currencyDenominatedAmount),
         },
-        transactions: [
-          {
-            id: data.transaction.id,
-            amount: data.transaction.currencyDenominatedAmount,
-            accountId: data.transaction.accountId,
-            category: data.transaction.categoryType,
-            type: data.transaction.type,
-            date: data.transaction.date,
-            merchantInfo: data.merchantInformation,
-          },
-        ],
+        customMerchantInfo: data.transaction.customMerchantInfo,
       };
 
       this.merchantMap[category] = newData;
@@ -74,12 +56,5 @@ class MerchantAggregation {
     return this.merchantMap;
   }
 }
-const scaleValue = (value: Currency) => {
-  const num = value.unscaledValue.toString();
-  const start = num.slice(0, -value.scale);
-  const end = num.slice(-value.scale);
-
-  return parseFloat(`${start}.${end}`);
-};
 
 export default MerchantAggregation;

@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import { formatCurrency, formatDate, formatNumber } from "../../../helpers/format";
+import { formatDate, formatMoney } from "../../../helpers/format";
 
 export interface TransactionsProps {
-  transactions: V1.Search.TransactionData[];
+  transactions: V2.Transactions.Transaction[];
 }
 
 const Transactions: React.VFC<TransactionsProps> = ({ transactions }) => {
@@ -20,18 +20,16 @@ const Transactions: React.VFC<TransactionsProps> = ({ transactions }) => {
     <div>
       <h4>Some of your transactions</h4>
       <ul>
-        {transactions.map(
-          ({ transaction: { description, id, date, amount, currencyDenominatedAmount } }) => (
-            <li key={id}>
-              <b>{formatDate(new Date(date))}</b>
-              <br />
-              {description}
-              <br />
-              {formatNumber(amount)} {formatCurrency(currencyDenominatedAmount?.currencyCode)}
-              <br />
-            </li>
-          ),
-        )}
+        {transactions.map(({ descriptions, id, dates, amount }) => (
+          <li key={id}>
+            <b>{formatDate(new Date(dates.booked))}</b>
+            <br />
+            {descriptions.display}
+            <br />
+            {formatMoney(amount)}
+            <br />
+          </li>
+        ))}
       </ul>
     </div>
   );

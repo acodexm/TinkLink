@@ -1,19 +1,15 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 
 import { getAccounts } from "../../api/account/getAccounts";
-import { PaginationQuery } from "../../api/types";
 import { LoadingHandler } from "../../components/LoadingHandler";
 import paths from "../../const/paths";
 import { AccountItem } from "./AccountItem";
 
 const Accounts: FC = () => {
-  const [state, setState] = useState<PaginationQuery>({ pageSize: 5 });
-  const { data, isError, isLoading } = useQuery(["accounts", state], () => getAccounts(state));
-  const onNextClick = () => {
-    if (data?.nextPageToken) setState(prev => ({ ...prev, pageToken: data.nextPageToken }));
-  };
+  //no more than 30 accounts :) unless you own all banks accounts in the country xD
+  const { data, isError, isLoading } = useQuery(["accounts"], () => getAccounts({ pageSize: 30 }));
   const { push } = useHistory();
   const onAccountClick = (id: string) => () => {
     push(`${paths.Account}/${id}`);
@@ -42,9 +38,6 @@ const Accounts: FC = () => {
               />
             ),
           )}
-          <button onClick={onNextClick} disabled={!data.nextPageToken}>
-            next
-          </button>
         </>
       )}
     </LoadingHandler>

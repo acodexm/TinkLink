@@ -8,22 +8,9 @@ export const mockData = {
         currencyDenominatedAmount: { currencyCode: "EUR", scale: 2, unscaledValue: -12345 },
         type: "testType",
         description: "testDescription",
-      },
-      merchantInformation: {
-        merchantName: "testMerchant",
-      },
-    },
-    {
-      transaction: {
-        id: "testId",
-        accountId: "testAccountId",
-        date: 12345,
-        currencyDenominatedAmount: { currencyCode: "EUR", scale: 1, unscaledValue: -678 },
-        type: "testType2",
-        description: "testDescription",
-      },
-      merchantInformation: {
-        merchantName: "testMerchant",
+        customMerchantInfo: {
+          merchantName: "testMerchant",
+        },
       },
     },
     {
@@ -34,9 +21,22 @@ export const mockData = {
         currencyDenominatedAmount: { currencyCode: "EUR", scale: 1, unscaledValue: -678 },
         type: "testType2",
         description: "testDescription",
+        customMerchantInfo: {
+          merchantName: "testMerchant",
+        },
       },
-      merchantInformation: {
-        merchantName: "testMerchant",
+    },
+    {
+      transaction: {
+        id: "testId",
+        accountId: "testAccountId",
+        date: 12345,
+        currencyDenominatedAmount: { currencyCode: "EUR", scale: 1, unscaledValue: -678 },
+        type: "testType2",
+        description: "testDescription",
+        customMerchantInfo: {
+          merchantName: "testMerchant",
+        },
       },
     },
   ],
@@ -48,53 +48,9 @@ export const expectedResult = {
       currencyCode: "EUR",
       scaledValue: -259.05,
     },
-    transactions: [
-      {
-        accountId: "testAccountId",
-        amount: {
-          currencyCode: "EUR",
-          scale: 2,
-          unscaledValue: -12345,
-        },
-        category: undefined,
-        date: 12345,
-        id: "testId",
-        merchantInfo: {
-          merchantName: "testMerchant",
-        },
-        type: "testType",
-      },
-      {
-        accountId: "testAccountId",
-        amount: {
-          currencyCode: "EUR",
-          scale: 1,
-          unscaledValue: -678,
-        },
-        category: undefined,
-        date: 12345,
-        id: "testId",
-        merchantInfo: {
-          merchantName: "testMerchant",
-        },
-        type: "testType2",
-      },
-      {
-        accountId: "testAccountId",
-        amount: {
-          currencyCode: "EUR",
-          scale: 1,
-          unscaledValue: -678,
-        },
-        category: undefined,
-        date: 12345,
-        id: "testId",
-        merchantInfo: {
-          merchantName: "testMerchant",
-        },
-        type: "testType2",
-      },
-    ],
+    customMerchantInfo: {
+      merchantName: "testMerchant",
+    },
   },
   testtype: {
     category: "testtype",
@@ -102,23 +58,9 @@ export const expectedResult = {
       currencyCode: "EUR",
       scaledValue: -123.45,
     },
-    transactions: [
-      {
-        accountId: "testAccountId",
-        amount: {
-          currencyCode: "EUR",
-          scale: 2,
-          unscaledValue: -12345,
-        },
-        category: undefined,
-        date: 12345,
-        id: "testId",
-        merchantInfo: {
-          merchantName: "testMerchant",
-        },
-        type: "testType",
-      },
-    ],
+    customMerchantInfo: {
+      merchantName: "testMerchant",
+    },
   },
   testtype2: {
     category: "testtype2",
@@ -126,37 +68,8 @@ export const expectedResult = {
       currencyCode: "EUR",
       scaledValue: -135.6,
     },
-    transactions: [
-      {
-        accountId: "testAccountId",
-        amount: {
-          currencyCode: "EUR",
-          scale: 1,
-          unscaledValue: -678,
-        },
-        category: undefined,
-        date: 12345,
-        id: "testId",
-        merchantInfo: {
-          merchantName: "testMerchant",
-        },
-        type: "testType2",
-      },
-      {
-        accountId: "testAccountId",
-        amount: {
-          currencyCode: "EUR",
-          scale: 1,
-          unscaledValue: -678,
-        },
-        category: undefined,
-        date: 12345,
-        id: "testId",
-        merchantInfo: {
-          merchantName: "testMerchant",
-        },
-        type: "testType2",
-      },
-    ],
+    customMerchantInfo: {
+      merchantName: "testMerchant",
+    },
   },
 };

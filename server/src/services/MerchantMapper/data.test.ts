@@ -8,22 +8,9 @@ export const mockDataV1 = {
         currencyDenominatedAmount: { currencyCode: "EUR", scale: 2, unscaledValue: -12345 },
         type: "testType",
         description: "testDescription",
-      },
-      merchantInformation: {
-        merchantName: "testMerchant",
-      },
-    },
-    {
-      transaction: {
-        id: "testId",
-        accountId: "testAccountId",
-        date: 12345,
-        currencyDenominatedAmount: { currencyCode: "EUR", scale: 1, unscaledValue: -678 },
-        type: "testType2",
-        description: "testDescription",
-      },
-      merchantInformation: {
-        merchantName: "testMerchant",
+        customMerchantInfo: {
+          merchantName: "testMerchant",
+        },
       },
     },
     {
@@ -34,9 +21,22 @@ export const mockDataV1 = {
         currencyDenominatedAmount: { currencyCode: "EUR", scale: 1, unscaledValue: -678 },
         type: "testType2",
         description: "testDescription",
+        customMerchantInfo: {
+          merchantName: "testMerchant",
+        },
       },
-      merchantInformation: {
-        merchantName: "testMerchant",
+    },
+    {
+      transaction: {
+        id: "testId",
+        accountId: "testAccountId",
+        date: 12345,
+        currencyDenominatedAmount: { currencyCode: "EUR", scale: 1, unscaledValue: -678 },
+        type: "testType2",
+        description: "testDescription",
+        customMerchantInfo: {
+          merchantName: "testMerchant",
+        },
       },
     },
   ],
@@ -81,11 +81,11 @@ export const mockDataV2 = {
 export const expectedResultV1 = {
   results: [
     {
-      merchantInfo: {
-        imgSrc: "http://test",
-        merchantName: "testDescription",
-      },
       transaction: {
+        customMerchantInfo: {
+          imgSrc: "http://test",
+          merchantName: "testDescription",
+        },
         accountId: "testAccountId",
         currencyDenominatedAmount: {
           currencyCode: "EUR",
@@ -100,11 +100,11 @@ export const expectedResultV1 = {
       type: undefined,
     },
     {
-      merchantInfo: {
-        imgSrc: "http://test",
-        merchantName: "testDescription",
-      },
       transaction: {
+        customMerchantInfo: {
+          imgSrc: "http://test",
+          merchantName: "testDescription",
+        },
         accountId: "testAccountId",
         currencyDenominatedAmount: {
           currencyCode: "EUR",
@@ -119,11 +119,11 @@ export const expectedResultV1 = {
       type: undefined,
     },
     {
-      merchantInfo: {
-        imgSrc: "http://test",
-        merchantName: "testDescription",
-      },
       transaction: {
+        customMerchantInfo: {
+          imgSrc: "http://test",
+          merchantName: "testDescription",
+        },
         accountId: "testAccountId",
         currencyDenominatedAmount: {
           currencyCode: "EUR",
@@ -138,7 +138,7 @@ export const expectedResultV1 = {
       type: undefined,
     },
   ],
-};
+} as unknown as V1.Search.Response;
 export const expectedResultV2 = {
   nextPageToken: undefined,
   transactions: [
@@ -158,7 +158,7 @@ export const expectedResultV2 = {
         original: "testDescription",
       },
       id: "testId",
-      merchantInfo: {
+      customMerchantInfo: {
         imgSrc: "http://test",
         merchantName: "testDescription",
       },
@@ -185,7 +185,7 @@ export const expectedResultV2 = {
         original: "testDescription",
       },
       id: "testId",
-      merchantInfo: {
+      customMerchantInfo: {
         imgSrc: "http://test",
         merchantName: "testDescription",
       },
@@ -212,7 +212,7 @@ export const expectedResultV2 = {
         original: "testDescription",
       },
       id: "testId",
-      merchantInfo: {
+      customMerchantInfo: {
         imgSrc: "http://test",
         merchantName: "testDescription",
       },

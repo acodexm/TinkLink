@@ -47,6 +47,7 @@ declare namespace V2 {
       id: string;
       identifiers: Identifiers;
       merchantInformation: MerchantInformation;
+      customMerchantInfo: MerchantInformation;
       providerMutability: string;
       reference: string;
       status: string;

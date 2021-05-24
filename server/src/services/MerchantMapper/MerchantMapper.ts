@@ -1,5 +1,6 @@
 import { omit } from "lodash";
 import fetch from "node-fetch";
+import qs from "qs";
 
 import { handleResponse } from "../../controllers/helpers";
 import { AutocompleteFailure, AutocompleteResponse, MerchantMap } from "./types";
@@ -39,29 +40,31 @@ class MerchantMapper {
 
     return transactionData;
   }
-  private async mapTransactionV1({ transaction, type }: V1.Search.TransactionData) {
+  private async mapTransactionV1({
+    transaction,
+    type,
+  }: V1.Search.TransactionData): Promise<V1.Search.TransactionData> {
     const merchant = transaction.description;
-    const merchantInfo: MerchantInformation = { merchantName: merchant };
+    const customMerchantInfo: MerchantInformation = { merchantName: merchant };
 
-    merchantInfo.imgSrc = await getMerchantImg(merchant, this.merchantMap);
+    customMerchantInfo.imgSrc = await getMerchantImg(merchant, this.merchantMap);
 
-    return { transaction: { ...transaction }, type, merchantInfo };
+    return { transaction: { ...transaction, customMerchantInfo }, type };
   }
-  private async mapTransactionV2(transaction: V2.Transactions.Transaction) {
+  private async mapTransactionV2(
+    transaction: V2.Transactions.Transaction,
+  ): Promise<V2.Transactions.Transaction> {
     const merchant = transaction.descriptions.original;
-    const merchantInfo: MerchantInformation = { merchantName: merchant };
+    const customMerchantInfo: MerchantInformation = { merchantName: merchant };
 
-    merchantInfo.imgSrc = await getMerchantImg(merchant, this.merchantMap);
+    customMerchantInfo.imgSrc = await getMerchantImg(merchant, this.merchantMap);
 
-    return { ...transaction, merchantInfo };
+    return { ...transaction, customMerchantInfo };
   }
 }
 async function getMerchantImg(merchant: string, merchantMap: MerchantMap) {
-  let imgSrc = defaultMapper(merchant);
+  let imgSrc = merchantMap[merchant]?.imgSrc;
 
-  if (imgSrc) return imgSrc;
-
-  imgSrc = merchantMap[merchant]?.imgSrc;
   if (imgSrc) return imgSrc;
 
   imgSrc = await searchImgSrc(merchant);
@@ -76,7 +79,10 @@ async function getMerchantImg(merchant: string, merchantMap: MerchantMap) {
 
 const searchImgSrc = async (merchant: string) => {
   const response = await fetch(
-    `https://autocomplete.clearbit.com/v1/companies/suggest?query=${merchant}`,
+    `https://autocomplete.clearbit.com/v1/companies/suggest${qs.stringify(
+      { query: merchant },
+      { addQueryPrefix: true },
+    )}`,
   );
   const [data, error] = await handleResponse<AutocompleteResponse, AutocompleteFailure>(response);
 
@@ -85,35 +91,6 @@ const searchImgSrc = async (merchant: string) => {
   }
 
   return data[0]?.logo;
-};
-
-const defaultMapper = (name: string) => {
-  switch (name.toLowerCase()) {
-    case "withdraw": {
-      return "https://";
-    }
-    case "payment": {
-      return "https://";
-    }
-    case "income": {
-      return "https://";
-    }
-    case "transfer": {
-      return "https://";
-    }
-    case "salary": {
-      return "https://";
-    }
-    case "card operation": {
-      return "https://";
-    }
-    case "fee": {
-      return "https://";
-    }
-    default: {
-      return undefined;
-    }
-  }
 };
 
 export default MerchantMapper;
