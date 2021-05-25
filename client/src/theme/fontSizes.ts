@@ -1,8 +1,8 @@
 const FontSizes = {
-  bigger: "24px",
-  big: "20px",
-  normal: "16px",
-  small: "14px",
+  bigger: "20px",
+  big: "16px",
+  normal: "14px",
+  small: "10px",
 };
 
 export default FontSizes;

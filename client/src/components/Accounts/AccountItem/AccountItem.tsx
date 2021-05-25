@@ -19,9 +19,9 @@ const AccountCard = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
-  background: #ffffff30;
-  box-shadow: 2px 2px orange;
-  color: white;
+  background: ${({ theme }) => theme.colors.tintedBackground};
+  box-shadow: 2px 2px ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 const AccountItem: React.VFC<Props> = ({ onClick, name, balance }) => {
   return (

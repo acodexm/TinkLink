@@ -1,16 +1,13 @@
-import React, { FC } from "react";
 import styled from "styled-components";
 
-const StyledHeader = styled.header`
-  height: 50px;
+export const Transaction = styled.div`
   padding: 1rem;
+  margin: 1rem 0;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  border-radius: 0 0 5rem 1rem;
+  border-radius: 1rem 1rem 5rem 1rem;
   background: ${({ theme }) => theme.colors.tintedBackground};
   box-shadow: 2px 2px ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
-
-const Header: FC = ({ children }) => <StyledHeader>{children}</StyledHeader>;
-
-export default Header;

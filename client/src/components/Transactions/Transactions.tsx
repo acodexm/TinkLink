@@ -23,8 +23,8 @@ const Transactions: React.VFC<Props> = ({ accountId }) => {
   return (
     <>
       <LoadingHandler loading={isLoading} error={isError}>
-        <Row justifyContent={"between"}>
-          <Col lg={12}>
+        <Row justifyContent={"center"}>
+          <Col col={10}>
             {data &&
               data.transactions.map(({ id, amount, descriptions }) => (
                 <TransactionItem key={id} amount={amount} descriptions={descriptions} />

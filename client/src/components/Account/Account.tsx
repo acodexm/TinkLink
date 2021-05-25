@@ -1,18 +1,12 @@
 import * as React from "react";
-import styled from "styled-components";
 
 import { PaginationQuery } from "../../api/types";
 import { formatMoney } from "../../helpers/format";
 import { QueryUpdater } from "../../helpers/hooks/useQueryAsState";
 import Pagination from "../Pagination";
+import { Centered } from "../StyledComponents/Centered";
 import { Transactions } from "./Transactions";
 
-const Centered = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
 const Account: React.VFC<{
   accountName: string;
   account: V1.Ballance.Response;

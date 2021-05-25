@@ -1,5 +1,5 @@
 const Fonts = {
-  roboto: "'Roboto', sans-serif",
+  main: '"Lota Grotesque", Avenir, Arial, sans-serif',
 };
 
 export default Fonts;

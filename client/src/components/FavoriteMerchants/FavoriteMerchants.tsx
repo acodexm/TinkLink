@@ -11,7 +11,7 @@ const FavoriteMerchants: React.VFC = () => {
 
   return (
     <LoadingHandler loading={isLoading} error={isError}>
-      <Row justifyContent={"around"}>
+      <Row justifyContent={"between"}>
         {data && data.map(merchant => <Merchant key={merchant.category} merchant={merchant} />)}
       </Row>
     </LoadingHandler>

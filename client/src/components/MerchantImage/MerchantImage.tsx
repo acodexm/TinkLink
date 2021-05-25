@@ -18,6 +18,7 @@ const KNOWN_TYPES: Record<string, string> = {
 };
 const StyledImg = styled.img`
   border-radius: 50%;
+  padding: 1rem;
 `;
 const MerchantImage: React.VFC<{
   info: MerchantInformation;

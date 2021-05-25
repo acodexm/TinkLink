@@ -6,16 +6,17 @@ const NoContent = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
-  color: white;
   text-transform: uppercase;
-  font-weight: bold;
-  font-size: large;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: ${({ theme }) => theme.fontSizes.bigger};
+  margin: 5rem;
 `;
 
 const NotFound: VFC = () => (
   <Container>
     <Row justifyContent={"center"} alignItems={"center"}>
-      <NoContent style={{ margin: "5rem" }}>Page not found</NoContent>
+      <NoContent>Page not found</NoContent>
     </Row>
   </Container>
 );

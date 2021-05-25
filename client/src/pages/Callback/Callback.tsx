@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 
 import { getAuthorized } from "../../api/auth/getAuthorized";
 import { LoadingHandler } from "../../components/LoadingHandler";
+import { Button } from "../../components/StyledComponents/Button";
 import paths from "../../const/paths";
 import useQuerySearch from "../../helpers/hooks/useQuerySearch";
 
@@ -16,13 +17,13 @@ const Callback: React.VFC = () => {
   return (
     <LoadingHandler loading={isLoading} error={isError}>
       <h1>Success</h1>
-      <button
+      <Button
         onClick={() => {
           push(paths.Main);
         }}
       >
         Check your accounts
-      </button>
+      </Button>
     </LoadingHandler>
   );
 };
