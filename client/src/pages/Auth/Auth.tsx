@@ -3,8 +3,8 @@ import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 
 import { getAutoAuth } from "../../api/auth/getAutoAuth";
+import AuthLink from "../../components/AuthLink/AuthLink";
 import paths from "../../const/paths";
-import AuthLink from "./AuthLink";
 
 export interface AuthProps {}
 

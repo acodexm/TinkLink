@@ -3,9 +3,9 @@ import { useQuery } from "react-query";
 import { Container } from "styled-bootstrap-grid";
 
 import { getAutoAuth } from "../api/auth/getAutoAuth";
+import AuthLink from "../components/AuthLink/AuthLink";
 import { Header } from "../components/Header";
 import { Link } from "../components/StyledComponents/Link";
-import AuthLink from "../pages/Auth/AuthLink";
 
 const Layout: React.FC = ({ children }) => {
   const { data } = useQuery(["autoAuth"], getAutoAuth, { retry: false });

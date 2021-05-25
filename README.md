@@ -7,27 +7,28 @@
 
 ## Requirements
 - mongodb
-
-#Initial & run
-```
-npm install
-npm run start
-```
 or
+- docker
+
+## Initial & run
+yarn is the preferred package manager
 ```
 yarn
 yarn start
 ```
+or
+```
+docker-compose up
+```
 
-
-# Server
+## Server
 Server is using https://api.tink.se/api/v1 API. 
 1. Client can get authorized through Tink Link API
 2. token is stored safely on database and it's kept up to date
-3. data aggregation is done server side, stored on database for quick access and refreshed every X min
+3. data aggregation is done server side
+4. merchant mapping is using https://clearbit.com/docs#autocomplete-api
 
-# Client
+## Client
 Server is using Server API.
 1. User can login with Tink Link 
-2. User can see and filter transactions by categories and type
 3. Merchants logo is fetched from external API

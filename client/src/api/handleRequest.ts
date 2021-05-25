@@ -1,4 +1,4 @@
-import { clientId } from "../const/credentials";
+import { clientId } from "../const/static";
 
 export async function handleRequest<T = unknown, V = unknown>(
   endpoint: string,

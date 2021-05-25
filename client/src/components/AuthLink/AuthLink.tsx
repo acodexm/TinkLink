@@ -1,7 +1,8 @@
-import * as React from "react";
+import qs from "qs";
+import React from "react";
 
-import { Link } from "../../components/StyledComponents/Link";
-import { makeEncodedBody } from "../../helpers/makeEncodedBody";
+import { clientId, redirectUri } from "../../const/static";
+import { Link } from "../StyledComponents/Link";
 
 const scopeData = [
   // "account-verification-reports:read",
@@ -35,15 +36,18 @@ const AuthLink: React.FC<Props> = ({
   locale = "en_US",
   market = "UK",
 }) => {
-  const link = `https://link.tink.com/1.0/transactions/connect-accounts/?${makeEncodedBody({
-    scope,
-    locale,
-    market,
-    theme: "light",
-    test: true,
-    client_id: process.env.REACT_APP_TINK_CLIENT_ID || "",
-    redirect_uri: "http://localhost:8080/callback",
-  })}`;
+  const link = `https://link.tink.com/1.0/transactions/connect-accounts/${qs.stringify(
+    {
+      scope,
+      locale,
+      market,
+      theme: "light",
+      test: true,
+      client_id: clientId,
+      redirect_uri: redirectUri,
+    },
+    { addQueryPrefix: true, skipNulls: true },
+  )}`;
 
   return <Link href={link}>{children}</Link>;
 };
