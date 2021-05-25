@@ -40,8 +40,8 @@ React client is using Server API.
 - a lot of styles are not finished due to lack of time
 - data aggregation could be stored in database instead of memory of the server
 - merchant mappings could be stored in database instead of memory of the server
-- app theme could might change
+- app theme might change
 - client and server is prepared for data filtering and sorting and will be handled in the future
-- currently there is no redirect when authentication failed
+- currently there is no redirect when authentication failed and will be handled in the future
 - there are no navigation buttons in header they will be added soon
 - not all errors are handled, there might occur some unexpected behaviors at this point
