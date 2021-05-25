@@ -8,5 +8,6 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    font-family: "Lota Grotesque", Avenir, Arial, sans-serif;
  }
 `;

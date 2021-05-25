@@ -1,15 +1,24 @@
-import React from "react";
+import React, { memo } from "react";
+import styled from "styled-components";
 
+import cardOperation from "../../assets/credit-card.svg";
 import transfer from "../../assets/currency-exchange.svg";
+import defaultOperation from "../../assets/flying-money.svg";
+import payment from "../../assets/money.svg";
+import fee from "../../assets/tax.svg";
+import withdraw from "../../assets/withdrawal.svg";
 
 const KNOWN_TYPES: Record<string, string> = {
   transfer,
-  "card operation": "",
-  fee: "",
-  payment: "",
-  withdraw: "",
-  default: "",
+  "card operation": cardOperation,
+  fee,
+  payment,
+  withdraw,
+  default: defaultOperation,
 };
+const StyledImg = styled.img`
+  border-radius: 50%;
+`;
 const MerchantImage: React.VFC<{
   category: string;
   info: MerchantInformation;
@@ -27,7 +36,7 @@ const MerchantImage: React.VFC<{
     alt = merchantName;
   }
 
-  return <img src={src} alt={alt} width={width} height={height} />;
+  return <StyledImg src={src} alt={alt} width={width} height={height} />;
 };
 
-export default MerchantImage;
+export default memo(MerchantImage);

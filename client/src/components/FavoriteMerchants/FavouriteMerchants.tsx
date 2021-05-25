@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
+import { Row } from "styled-bootstrap-grid";
 
 import { getAggregatedMerchants } from "../../api/aggregation/getAggregatedMerchants";
 import { LoadingHandler } from "../LoadingHandler";
@@ -10,7 +11,9 @@ const FavoriteMerchants: React.VFC = () => {
 
   return (
     <LoadingHandler loading={isLoading} error={isError}>
-      {data && data.map(merchant => <Merchant key={merchant.category} merchant={merchant} />)}
+      <Row justifyContent={"around"}>
+        {data && data.map(merchant => <Merchant key={merchant.category} merchant={merchant} />)}
+      </Row>
     </LoadingHandler>
   );
 };
