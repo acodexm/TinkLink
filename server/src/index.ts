@@ -38,11 +38,6 @@ app.use(
   }),
 );
 
-app.get("/api", (req, res) => {
-  res.send(
-    "available api: /api/search, /api/transactions, /api/account, /api/accounts, /api/authorize, ",
-  );
-});
 app.post("/api/search", search);
 app.get("/api/transactions", getTransactions);
 app.get("/api/accounts", getAccountList);
@@ -50,10 +45,15 @@ app.get("/api/account", getAccount);
 app.post("/api/authorize", authorize);
 app.get("/api/autoAuth", autoAuth);
 app.get("/api/aggregate", getAggregatedTransactions);
+app.get("/api", (req, res) => {
+  res.send(
+    "available api: /api/search, /api/transactions, /api/account, /api/accounts, /api/authorize, ",
+  );
+});
 const buildDir = path.join(`${process.cwd()}/build`);
 
 app.use(express.static(buildDir));
-app.get("/*", function (req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(buildDir, "index.html"));
 });
 
