@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import path from "path";
 
 import {
   authorize,
@@ -19,7 +20,7 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = [client, tinkBaseUrl, "https://autocomplete.clearbit.com"];
+const allowedOrigins = [address, client, tinkBaseUrl, "https://autocomplete.clearbit.com"];
 
 app.use(
   cors({
@@ -37,7 +38,7 @@ app.use(
   }),
 );
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send(
     "available api: /api/search, /api/transactions, /api/account, /api/accounts, /api/authorize, ",
   );
@@ -49,6 +50,12 @@ app.get("/api/account", getAccount);
 app.post("/api/authorize", authorize);
 app.get("/api/autoAuth", autoAuth);
 app.get("/api/aggregate", getAggregatedTransactions);
+const buildDir = path.join(`${process.cwd()}/build`);
+
+app.use(express.static(buildDir));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(buildDir, "index.html"));
+});
 
 mongoose.connect(
   "mongodb://localhost:27017/tink-link",

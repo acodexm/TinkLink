@@ -8,6 +8,10 @@
     "clear": "rimraf node_modules && cd ./server && yarn clear && cd ../client && yarn clear",
     "install": "cd ./server && yarn && cd ../client && yarn",
     "start": "concurrently \"cd ./server && yarn dev\" \"cd ./client && yarn start\"",
+    "build": "cd ./server && yarn build && cd ../client && yarn build && cp -r ./build ../server/dist",
+    "build:docker": "cd ./server && yarn build && cd ../client && yarn build",
+    "start:dev": "export NODE_ENV=production && cd ./server/dist && node index.js",
+    "start:docker": "cd ./server/dist && node index.js",
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
     "type:check": "cd client && tsc --noEmit && cd ../server && tsc --noEmit",
     "postinstall": "test -n \"$SKIP_HUSKY\" || husky install"

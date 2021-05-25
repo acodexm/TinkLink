@@ -42,7 +42,7 @@ const AuthLink: React.FC<Props> = ({
     theme: "light",
     test: true,
     client_id: process.env.REACT_APP_TINK_CLIENT_ID || "",
-    redirect_uri: "http://localhost:3000/callback",
+    redirect_uri: "http://localhost:8080/callback",
   })}`;
 
   return <Link href={link}>{children}</Link>;
