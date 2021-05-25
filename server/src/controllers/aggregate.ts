@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { isString } from "lodash";
 
 import { fetchSearchTransactions } from "../api";
-import MerchantAggregation from "../services/MerchantAggregation/MerchantAggregation";
+import MerchantAggregation from "../services/MerchantAggregation";
 import { executeAuthorized } from "./helpers";
 
 export const getAggregatedTransactions: RequestHandler = async (req, res) => {

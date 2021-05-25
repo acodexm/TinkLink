@@ -1,12 +1,6 @@
 import { RequestHandler } from "express";
 
-import {
-  dataNotFound,
-  fetchAccountBalance,
-  fetchAccounts,
-  fetchSearchTransactions,
-  fetchTransactions,
-} from "../api";
+import { dataNotFound, fetchAccountBalance, fetchAccounts, fetchTransactions } from "../api";
 import { executeAuthorized } from "./helpers";
 
 export const getAccountList: RequestHandler = async (req, res) => {
