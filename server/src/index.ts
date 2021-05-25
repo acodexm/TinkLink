@@ -12,7 +12,7 @@ import {
   getTransactions,
   search,
 } from "./controllers";
-import { address, clientSecret, domain, port, tinkBaseUrl } from "./static";
+import { address, clientSecret, domain, mongoAddress, port, tinkBaseUrl } from "./static";
 
 if (!clientSecret) throw new Error("CLIENT SECRET NOT IN ENV");
 
@@ -65,7 +65,7 @@ app.get("*", function (req, res) {
 });
 
 mongoose.connect(
-  "mongodb://localhost:27017/tink-link",
+  mongoAddress,
   {
     useNewUrlParser: true,
   },

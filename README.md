@@ -5,7 +5,7 @@
 3.Display the merchant logo on the result page (not included in Tink Link).
 4.For bonus points, include other data from the Tink api that you feel interesting in the result page. Be creative!
 
-##Requirements
+## Requirements
 - mongodb
 
 #Initial & run
@@ -20,13 +20,13 @@ yarn start
 ```
 
 
-#Server
+# Server
 Server is using https://api.tink.se/api/v1 API. 
 1. Client can get authorized through Tink Link API
 2. token is stored safely on database and it's kept up to date
 3. data aggregation is done server side, stored on database for quick access and refreshed every X min
 
-#Client
+# Client
 Server is using Server API.
 1. User can login with Tink Link 
 2. User can see and filter transactions by categories and type
