@@ -1,4 +1,4 @@
-FROM node:latest as builder
+FROM node:16-alpine as builder
 
 WORKDIR /opt/app
 
@@ -6,7 +6,7 @@ WORKDIR /opt/app
 COPY . .
 RUN yarn build:docker
 
-FROM node:latest
+FROM node:16-alpine
 LABEL maintainer="acodexm"
 
 # When the NODE_ENV environment variable is set to 'production' all devDependencies in your package.json file will be completely ignored when running install
@@ -15,8 +15,9 @@ ENV NODE_ENV=production
 WORKDIR /opt/app
 
 COPY package.json yarn.lock ./
-COPY ./server ./server
-COPY ./client ./client
+COPY ./server/package.json ./server/yarn.lock ./server/
+COPY ./client/package.json ./client/yarn.lock ./client/
+
 # install only production packages
 RUN SKIP_HUSKY=1 yarn install --frozen-lockfile
 # copy necessary files/directories

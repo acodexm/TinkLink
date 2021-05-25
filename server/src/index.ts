@@ -12,7 +12,7 @@ import {
   getTransactions,
   search,
 } from "./controllers";
-import { address, client, clientSecret, domain, port, tinkBaseUrl } from "./static";
+import { address, clientSecret, domain, port, tinkBaseUrl } from "./static";
 
 if (!clientSecret) throw new Error("CLIENT SECRET NOT IN ENV");
 
@@ -20,15 +20,22 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = [address, client, tinkBaseUrl, "https://autocomplete.clearbit.com"];
+const allowedOrigins = [
+  address,
+  tinkBaseUrl,
+  "https://autocomplete.clearbit.com",
+  "http://localhost:3000",
+  "http://localhost:8080",
+  "http://0.0.0.0:3000",
+  "http://0.0.0.0:8080",
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
       if (!allowedOrigins.includes(origin)) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
+        const msg = `The CORS policy for this site does not allow access from the ${origin}`;
 
         return callback(new Error(msg), false);
       }

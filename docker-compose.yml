@@ -9,6 +9,12 @@ services:
     ports:
       - "8080:8080"
     environment:
+      PORT: "${PORT}"
+      DOMAIN: "${DOMAIN}"
+      TINK_BASE: "${TINK_BASE}"
+      TINK_CLIENT_SECRET: "${TINK_CLIENT_SECRET}"
+      REACT_APP_SERVER_ORIGIN: "${REACT_APP_SERVER_ORIGIN}"
+      REACT_APP_TINK_CLIENT_ID: "${REACT_APP_TINK_CLIENT_ID}"
       MONGO_URL: mongodb://db:27017/tink-link
     networks:
       - local-network
