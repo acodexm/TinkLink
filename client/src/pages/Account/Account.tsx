@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
 import { getAccount } from "../../api/account/getAccount";
+import { getAccounts } from "../../api/account/getAccounts";
 import { PaginationQuery } from "../../api/types";
 import { AccountDetails } from "../../components/Account";
 import { LoadingHandler } from "../../components/LoadingHandler";
@@ -18,14 +19,21 @@ const Account: React.VFC = () => {
     () => getAccount(id, state.pageSize, state.pageToken),
     { keepPreviousData: true },
   );
+  const accounts = useQuery("accounts", () => getAccounts({ pageSize: 30 }));
+  const accountName = useMemo(() => {
+    const accountData = accounts.data?.accounts.find(account => account.id === id);
+
+    if (accountData) return accountData.name;
+    return "";
+  }, [accounts.data, id]);
 
   return (
     <LoadingHandler error={isError} loading={isLoading}>
-      <h1>Your account details</h1>
       {data && (
         <AccountDetails
           transactions={data.transactions}
           account={data.account}
+          accountName={accountName}
           callback={setState}
         />
       )}

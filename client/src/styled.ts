@@ -9,5 +9,6 @@ body {
     display: flex;
     flex-direction: column;
     font-family: "Lota Grotesque", Avenir, Arial, sans-serif;
+    color: white;
  }
 `;

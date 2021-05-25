@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import styled from "styled-components";
 
 import { PaginationQuery } from "../../api/types";
 import { QueryUpdater } from "../../helpers/hooks/useQueryAsState";
@@ -41,6 +42,26 @@ function reducer(state: State, action: Action): State {
       return state;
   }
 }
+const StyledButton = styled.button<{ rtl?: boolean }>`
+  margin: auto;
+  width: 70px;
+  height: 70px;
+  padding: 1rem;
+  border-radius: ${({ rtl = false }) => (rtl ? "1rem 1rem 1rem 50%" : "1rem 1rem 50%")};
+  background: ${({ disabled }) => (disabled ? "transparent" : "#ffffff30")};
+  box-shadow: 2px 2px orange;
+  border: none;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+`;
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  margin: 1rem;
+`;
 const Pagination: React.FC<{ callback: QueryUpdater<PaginationQuery>; nextPageToken?: string }> = ({
   nextPageToken,
   callback,
@@ -61,12 +82,15 @@ const Pagination: React.FC<{ callback: QueryUpdater<PaginationQuery>; nextPageTo
   }, [page]);
 
   return (
-    <>
-      <button onClick={onPrevClick}>prev</button>
-      <button onClick={onNextClick} disabled={!nextPageToken}>
-        next
-      </button>
-    </>
+    <Wrapper>
+      <StyledButton onClick={onPrevClick} rtl>
+        {"<"}
+      </StyledButton>
+
+      <StyledButton onClick={onNextClick} disabled={!nextPageToken}>
+        {">"}
+      </StyledButton>
+    </Wrapper>
   );
 };
 

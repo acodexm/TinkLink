@@ -20,11 +20,11 @@ const StyledImg = styled.img`
   border-radius: 50%;
 `;
 const MerchantImage: React.VFC<{
-  category: string;
   info: MerchantInformation;
   width: number;
   height: number;
-}> = ({ category, info: { imgSrc, merchantName }, width, height }) => {
+  category?: string;
+}> = ({ category = "unknown", info: { imgSrc, merchantName }, width, height }) => {
   let src;
   let alt;
 

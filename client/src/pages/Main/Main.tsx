@@ -8,8 +8,11 @@ import Transactions from "../../components/Transactions";
 const Main: FC<RouteComponentProps> = () => {
   return (
     <>
-      <FavoriteMerchants />
+      <h1>Your Tink Link connected accounts:</h1>
       <Accounts />
+      <h2>Your favorite merchants and spending:</h2>
+      <FavoriteMerchants />
+      <h3>Your transactions:</h3>
       <Transactions />
     </>
   );

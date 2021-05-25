@@ -1,6 +1,8 @@
 import React, { VFC } from "react";
 import styled, { keyframes } from "styled-components";
 
+import loading from "../../assets/loading.svg";
+
 const spin = keyframes`
     0% {
       -webkit-transform: rotate(0deg);
@@ -15,8 +17,8 @@ const StyledSpinner = styled.img`
   animation: ${spin} 1.5s infinite linear;
 `;
 
-export const Spinner: VFC<{ image: string; width: string }> = ({ image, width }) => (
-  <StyledSpinner src={image} style={{ width }} alt={"Loading"} />
+export const Spinner: VFC<{ width: number }> = ({ width }) => (
+  <StyledSpinner src={loading} width={width} alt={"Loading"} />
 );
 
 export default Spinner;

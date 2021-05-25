@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
+import { Col, Row } from "styled-bootstrap-grid";
 
 import { getTransactions } from "../../api/transactions/getTransactions";
 import { PaginationQuery } from "../../api/types";
@@ -22,15 +23,14 @@ const Transactions: React.VFC<Props> = ({ accountId }) => {
   return (
     <>
       <LoadingHandler loading={isLoading} error={isError}>
-        {data && (
-          <>
-            <div>
-              {data.transactions.map(({ id, amount, descriptions }) => (
+        <Row justifyContent={"between"}>
+          <Col lg={12}>
+            {data &&
+              data.transactions.map(({ id, amount, descriptions }) => (
                 <TransactionItem key={id} amount={amount} descriptions={descriptions} />
               ))}
-            </div>
-          </>
-        )}
+          </Col>
+        </Row>
       </LoadingHandler>
       <Pagination nextPageToken={data?.nextPageToken} callback={setState} />
     </>

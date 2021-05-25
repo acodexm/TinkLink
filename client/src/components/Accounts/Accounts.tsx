@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
+import { Row } from "styled-bootstrap-grid";
 
 import { getAccounts } from "../../api/account/getAccounts";
 import { LoadingHandler } from "../../components/LoadingHandler";
@@ -17,29 +18,29 @@ const Accounts: FC = () => {
 
   return (
     <LoadingHandler error={isError} loading={isLoading}>
-      {data && (
-        <>
-          {data.accounts.map(
-            ({
-              id,
-              name,
-              balances: {
-                booked: {
-                  amount: { value },
+      <Row justifyContent={"between"}>
+        {data && (
+          <>
+            {data.accounts.map(
+              ({
+                id,
+                name,
+                balances: {
+                  booked: { amount },
                 },
-              },
-            }) => (
-              <AccountItem
-                key={id}
-                name={name}
-                accountId={id}
-                balance={value}
-                onClick={onAccountClick(id)}
-              />
-            ),
-          )}
-        </>
-      )}
+              }) => (
+                <AccountItem
+                  key={id}
+                  name={name}
+                  accountId={id}
+                  balance={amount}
+                  onClick={onAccountClick(id)}
+                />
+              ),
+            )}
+          </>
+        )}
+      </Row>
     </LoadingHandler>
   );
 };
