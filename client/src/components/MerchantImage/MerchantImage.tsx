@@ -18,7 +18,6 @@ const KNOWN_TYPES: Record<string, string> = {
 };
 const StyledImg = styled.img`
   border-radius: 50%;
-  padding: 1rem;
 `;
 const Title = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.normal};

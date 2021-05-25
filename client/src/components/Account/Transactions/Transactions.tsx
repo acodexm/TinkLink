@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Col, Row } from "styled-bootstrap-grid";
+import styled from "styled-components";
 
 import { formatDate, formatMoney } from "../../../helpers/format";
 import MerchantImage from "../../MerchantImage/MerchantImage";
@@ -7,7 +9,16 @@ import { Transaction } from "../../StyledComponents/Transaction";
 interface TransactionsProps {
   transactions: V2.Transactions.Transaction[];
 }
-
+const TransactionImage = styled.div`
+  width: 100px;
+`;
+const Money = styled.span`
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: ${({ theme }) => theme.fontSizes.bigger};
+  color: ${({ theme }) => theme.colors.primary};
+  text-align: center;
+  align-self: center;
+`;
 const Transactions: React.VFC<TransactionsProps> = ({ transactions }) => {
   if (transactions.length === 0)
     return (
@@ -21,14 +32,12 @@ const Transactions: React.VFC<TransactionsProps> = ({ transactions }) => {
   return (
     <div>
       <h4>Some of your transactions:</h4>
-      {transactions.map(({ descriptions, id, dates, amount, customMerchantInfo }) => (
+      {transactions.map(({ id, dates, amount, customMerchantInfo }) => (
         <Transaction key={id}>
-          <div>
+          <TransactionImage>
             <MerchantImage info={customMerchantInfo} height={30} width={30} />
-            {descriptions.display}
-            <br />
-            <strong>{formatMoney(amount)}</strong>
-          </div>
+          </TransactionImage>
+          <Money>{formatMoney(amount)}</Money>
           <b>{formatDate(new Date(dates.booked))}</b>
         </Transaction>
       ))}
