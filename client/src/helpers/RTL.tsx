@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 const Providers: React.FC = ({ children }) => (
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>{" "}
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ThemeProvider>
   </BrowserRouter>
 );

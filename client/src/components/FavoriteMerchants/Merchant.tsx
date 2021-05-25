@@ -2,7 +2,7 @@ import React from "react";
 
 import { formatMoney } from "../../helpers/format";
 import MerchantImage from "../MerchantImage/MerchantImage";
-import { Description, MerchantCard, Title } from "./styled";
+import { Description, MerchantCard } from "./styled";
 
 const Merchant: React.VFC<{ merchant: FavoriteMerchant }> = ({
   merchant: { category, total, customMerchantInfo },
@@ -14,7 +14,6 @@ const Merchant: React.VFC<{ merchant: FavoriteMerchant }> = ({
       }}
     >
       <MerchantImage category={category} info={customMerchantInfo} width={100} height={100} />
-      <Title>{customMerchantInfo?.merchantName}</Title>
       <Description>
         Since 2020 you have spent: <br />
         <strong>{formatMoney(total)}</strong>

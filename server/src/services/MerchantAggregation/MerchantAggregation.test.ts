@@ -1,5 +1,5 @@
-import { expectedResult, mockData } from "./data.test";
 import MerchantAggregation from "./MerchantAggregation";
+import { expectedResult, mockData } from "./mockData";
 
 const aggregator = MerchantAggregation.getInstance();
 

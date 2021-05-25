@@ -1,7 +1,7 @@
 import mockFetch from "node-fetch";
 
-import { expectedResultV1, expectedResultV2, mockDataV1, mockDataV2 } from "./data.test";
 import MerchantMapper from "./MerchantMapper";
+import { expectedResultV1, expectedResultV2, mockDataV1, mockDataV2 } from "./mockData";
 
 jest.mock("node-fetch", () => jest.fn());
 jest.mock("../../controllers/helpers", () => ({

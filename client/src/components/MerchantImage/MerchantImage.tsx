@@ -20,6 +20,11 @@ const StyledImg = styled.img`
   border-radius: 50%;
   padding: 1rem;
 `;
+const Title = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes.normal};
+  margin-top: 1rem;
+  text-transform: capitalize;
+`;
 const MerchantImage: React.VFC<{
   info: MerchantInformation;
   width: number;
@@ -37,7 +42,12 @@ const MerchantImage: React.VFC<{
     alt = merchantName;
   }
 
-  return <StyledImg src={src} alt={alt} width={width} height={height} />;
+  return (
+    <>
+      <StyledImg src={src} alt={alt} width={width} height={height} />
+      <Title>{alt}</Title>
+    </>
+  );
 };
 
 export default memo(MerchantImage);

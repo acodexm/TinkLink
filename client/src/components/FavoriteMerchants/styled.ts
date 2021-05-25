@@ -13,10 +13,6 @@ export const MerchantCard = styled.div`
   box-shadow: 2px 2px ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.textPrimary};
 `;
-export const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.normal};
-  margin-top: 1rem;
-`;
 export const Description = styled.div`
   margin-top: 1rem;
   font-size: ${({ theme }) => theme.fontSizes.small};
