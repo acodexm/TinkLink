@@ -14,6 +14,17 @@ const spin = keyframes`
     }
 `;
 const StyledSpinner = styled.img<{ hide?: boolean }>`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  background: none;
+  position: absolute;
+  display: flex;
+  flex: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
   animation: ${spin} 1.5s infinite linear;
   visibility: ${({ hide }) => (hide ? "hidden" : "visible")};
 `;
