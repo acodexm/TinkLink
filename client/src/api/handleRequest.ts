@@ -1,10 +1,10 @@
-import { clientId } from "../const/static";
+import { clientId, serverAddress } from "../const/static";
 
 export async function handleRequest<T = unknown, V = unknown>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<[T | undefined, V | undefined]> {
-  const response = await fetch(process.env.REACT_APP_SERVER_ORIGIN + endpoint, {
+  const response = await fetch(serverAddress + endpoint, {
     ...options,
     headers: { Authorization: `Bearer ${clientId}`, ...(options?.headers ?? {}) },
   });
