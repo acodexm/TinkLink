@@ -35,7 +35,7 @@ React client is using Server API.
 
 
 ## Important developer notes 25.05.2021
-- for now when staring project locally (yarn start) proxy cannot handle too long pageToken for paginated transactions. no issues using docker
+- ~~for now when staring project locally (yarn start) proxy cannot handle too long pageToken for paginated transactions. no issues using docker~~
 - a lot of tests are not written due to lack of time
 - a lot of styles are not finished due to lack of time
 - data aggregation could be stored in database instead of memory of the server
