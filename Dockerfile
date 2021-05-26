@@ -2,8 +2,12 @@ FROM node:16-alpine as builder
 
 WORKDIR /opt/app
 
+# IMPORTANT! if you did not install run yarn install ever before than uncomment next line
+# RUN yarn install
+
 # copy everything including node_modules from install stage
 COPY . .
+
 RUN yarn build:docker
 
 FROM node:16-alpine
