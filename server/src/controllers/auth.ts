@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 
 import { clientUnauthorized, fetchToken, noClientIdError } from "../api";
 import { Auth } from "../models";
-import { checkIfTokenExpired, executeAuthorized, getClientId } from "./helpers";
+import { getClientId } from "./helpers";
 import { sendError } from "./helpers/sendError";
 
 export const authorize: RequestHandler = async (req, res) => {
@@ -29,21 +29,4 @@ export const authorize: RequestHandler = async (req, res) => {
   }
 
   return sendError(res, clientUnauthorized);
-};
-
-export const autoAuth: RequestHandler = async (req, res) => {
-  const clientId = getClientId(req.headers.authorization);
-
-  if (!clientId) {
-    return sendError(res, noClientIdError);
-  }
-  executeAuthorized(res, req.headers.authorization, async token => {
-    const ok = await checkIfTokenExpired(token, clientId);
-
-    if (ok) {
-      return res.status(200).json({ hasAccess: true });
-    }
-
-    return res.status(403).json({ hasAccess: false });
-  });
 };
