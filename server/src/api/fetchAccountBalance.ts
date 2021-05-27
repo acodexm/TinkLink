@@ -8,11 +8,6 @@ export const fetchAccountBalance = async (accountId: string, token: V1.Auth.Resp
   const response = await fetch(`${tinkBaseUrl}${v1}/accounts/${accountId}/balances`, {
     headers: { Authorization: `Bearer ${token.access_token}` },
   });
-  const [data, error] = await handleResponse<V1.Ballance.Response>(response);
 
-  if (error || !data) {
-    return;
-  }
-
-  return data;
+  return await handleResponse<V1.Ballance.Response>(response);
 };

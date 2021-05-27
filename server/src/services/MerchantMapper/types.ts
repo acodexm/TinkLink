@@ -6,6 +6,3 @@ type AutocompleteItem = {
 };
 
 export type AutocompleteResponse = AutocompleteItem[];
-export type AutocompleteFailure = {
-  message: string;
-};

@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 
 import { dataNotFound, fetchTransactions } from "../api";
 import { executeAuthorized } from "./helpers";
+import { sendError } from "./helpers/sendError";
 
 export const getTransactions: RequestHandler = async (req, res) => {
   const accountId = req.query.accountId as string;
@@ -9,12 +10,15 @@ export const getTransactions: RequestHandler = async (req, res) => {
   const pageToken = req.query.pageToken as string;
 
   executeAuthorized(res, req.headers.authorization, async ({ token }) => {
-    const transactionData = await fetchTransactions(accountId, pageSize, pageToken, token);
+    const [transactionData, error] = await fetchTransactions(accountId, pageSize, pageToken, token);
 
+    if (error) {
+      return sendError(res, error);
+    }
     if (transactionData) {
       return res.json(transactionData);
     }
 
-    return res.status(404).json(dataNotFound);
+    return sendError(res, dataNotFound);
   });
 };

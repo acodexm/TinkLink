@@ -1,8 +1,6 @@
-import { AuthData } from "../models/Auth";
-
-export type ResponseTokenSuccess = AuthData;
-export type ResponseTokenFailure = {
-  errorDetails?: string;
+export type ResponseError = {
   errorMessage: string;
-  errorCode: string;
+  errorCode: number;
+  errorKey?: string;
 };
+export type ValidResponse<T> = Promise<[T | undefined, ResponseError | undefined]>;

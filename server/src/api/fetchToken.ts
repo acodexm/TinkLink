@@ -4,7 +4,6 @@ import qs from "qs";
 import { handleResponse } from "../controllers/helpers";
 import { clientSecret, tinkBaseUrl } from "../static";
 import { encodedCT, v1 } from "./consts";
-import { ResponseTokenFailure, ResponseTokenSuccess } from "./types";
 
 export const fetchToken = async (clientId: string, code: string) => {
   const response = await fetch(`${tinkBaseUrl}${v1}/oauth/token`, {
@@ -19,12 +18,6 @@ export const fetchToken = async (clientId: string, code: string) => {
       "Content-Type": encodedCT,
     },
   });
-  const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
 
-  if (error || !token) {
-    console.error("authorize", error);
-    return;
-  }
-
-  return token;
+  return await handleResponse<V1.Auth.Response>(response);
 };

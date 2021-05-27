@@ -1,9 +1,7 @@
 import { omit } from "lodash";
-import fetch from "node-fetch";
-import qs from "qs";
 
-import { handleResponse } from "../../controllers/helpers";
-import { AutocompleteFailure, AutocompleteResponse, MerchantMap } from "./types";
+import { fetchImageSrc } from "../../api/fetchImageSrc";
+import { MerchantMap } from "./types";
 
 class MerchantMapper {
   private static instance: MerchantMapper;
@@ -47,7 +45,7 @@ class MerchantMapper {
     const merchant = transaction.description;
     const customMerchantInfo: MerchantInformation = { merchantName: merchant };
 
-    customMerchantInfo.imgSrc = await getMerchantImg(merchant, this.merchantMap);
+    customMerchantInfo.imgSrc = await this.getMerchantImg(merchant, this.merchantMap);
 
     return { transaction: { ...transaction, customMerchantInfo }, type };
   }
@@ -57,40 +55,24 @@ class MerchantMapper {
     const merchant = transaction.descriptions.original;
     const customMerchantInfo: MerchantInformation = { merchantName: merchant };
 
-    customMerchantInfo.imgSrc = await getMerchantImg(merchant, this.merchantMap);
+    customMerchantInfo.imgSrc = await this.getMerchantImg(merchant, this.merchantMap);
 
     return { ...transaction, customMerchantInfo };
   }
-}
-async function getMerchantImg(merchant: string, merchantMap: MerchantMap) {
-  let imgSrc = merchantMap[merchant]?.imgSrc;
+  private async getMerchantImg(merchant: string, merchantMap: MerchantMap) {
+    let imgSrc = merchantMap[merchant]?.imgSrc;
 
-  if (imgSrc) return imgSrc;
+    if (imgSrc) return imgSrc;
 
-  imgSrc = await searchImgSrc(merchant);
-  const newMerchant: MerchantInformation = { merchantName: merchant, imgSrc };
+    imgSrc = await fetchImageSrc(merchant);
+    const newMerchant: MerchantInformation = { merchantName: merchant, imgSrc };
 
-  merchantMap[merchant] = newMerchant;
+    merchantMap[merchant] = newMerchant;
 
-  //todo save on db
+    //todo save on db
 
-  return imgSrc;
-}
-
-const searchImgSrc = async (merchant: string) => {
-  const response = await fetch(
-    `https://autocomplete.clearbit.com/v1/companies/suggest${qs.stringify(
-      { query: merchant },
-      { addQueryPrefix: true },
-    )}`,
-  );
-  const [data, error] = await handleResponse<AutocompleteResponse, AutocompleteFailure>(response);
-
-  if (error || !data || data.length === 0) {
-    return undefined;
+    return imgSrc;
   }
-
-  return data[0]?.logo;
-};
+}
 
 export default MerchantMapper;

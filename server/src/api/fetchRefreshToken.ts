@@ -3,8 +3,7 @@ import qs from "qs";
 
 import { handleResponse } from "../controllers/helpers";
 import { clientSecret, tinkBaseUrl } from "../static";
-import { encodedCT, v1 } from ".";
-import { ResponseTokenFailure, ResponseTokenSuccess } from "./types";
+import { encodedCT, v1 } from "./consts";
 
 export const fetchRefreshToken = async (clientId: string, refreshToken: string) => {
   const response = await fetch(`${tinkBaseUrl}${v1}/oauth/token`, {
@@ -19,12 +18,6 @@ export const fetchRefreshToken = async (clientId: string, refreshToken: string) 
       "Content-Type": encodedCT,
     },
   });
-  const [token, error] = await handleResponse<ResponseTokenSuccess, ResponseTokenFailure>(response);
 
-  if (error || !token) {
-    console.error("refreshToken", error);
-    return;
-  }
-
-  return token;
+  return await handleResponse<V1.Auth.Response>(response);
 };

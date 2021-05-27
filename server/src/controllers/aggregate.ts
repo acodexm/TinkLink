@@ -1,9 +1,10 @@
 import { RequestHandler } from "express";
 import { isString } from "lodash";
 
-import { fetchSearchTransactions } from "../api";
+import { dataNotFound, fetchSearchTransactions } from "../api";
 import MerchantAggregation from "../services/MerchantAggregation";
 import { executeAuthorized } from "./helpers";
+import { sendError } from "./helpers/sendError";
 
 export const getAggregatedTransactions: RequestHandler = async (req, res) => {
   const { category } = req.query;
@@ -12,7 +13,7 @@ export const getAggregatedTransactions: RequestHandler = async (req, res) => {
     const aggregator = MerchantAggregation.getInstance();
 
     if (aggregator.isEmptyData()) {
-      const transactionData = await fetchSearchTransactions(
+      const [transactionData, error] = await fetchSearchTransactions(
         {
           startDate: 1577833200000,
           limit: 10000,
@@ -20,6 +21,12 @@ export const getAggregatedTransactions: RequestHandler = async (req, res) => {
         token,
       );
 
+      if (error) {
+        return sendError(res, error);
+      }
+      if (!transactionData) {
+        return sendError(res, dataNotFound);
+      }
       if (transactionData) {
         await aggregator.aggregateTransactionsV1(transactionData);
       }

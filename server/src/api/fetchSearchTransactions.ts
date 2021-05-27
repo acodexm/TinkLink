@@ -1,29 +1,18 @@
-import fetch from "node-fetch";
-
-import { handleResponse } from "../controllers/helpers";
 import MerchantMapper from "../services/MerchantMapper";
-import { tinkBaseUrl } from "../static";
-import { v1 } from "./consts";
+import { dataNotFound } from "./consts";
+import { fetchSearch } from "./fetchSearch";
+import { ValidResponse } from "./types";
 
 export const fetchSearchTransactions = async (
   searchQuery: V1.Search.Query,
   token: V1.Auth.Response,
-) => {
-  const response = await fetch(`${tinkBaseUrl}${v1}/search`, {
-    method: "POST",
-    body: JSON.stringify(searchQuery),
-    headers: {
-      Authorization: `Bearer ${token.access_token}`,
-      "Content-Type": "application/json",
-    },
-  });
-  const [searchData, error] = await handleResponse<V1.Search.Response>(response);
+): ValidResponse<V1.Search.Response> => {
+  const [searchData, error] = await fetchSearch(searchQuery, token);
 
-  if (error || !searchData) {
-    return;
-  }
+  if (error) return [undefined, error];
+  if (!searchData) return [undefined, dataNotFound];
 
   const mapper = MerchantMapper.getInstance();
 
-  return await mapper.mapTransactionsV1(searchData);
+  return [await mapper.mapTransactionsV1(searchData), undefined];
 };

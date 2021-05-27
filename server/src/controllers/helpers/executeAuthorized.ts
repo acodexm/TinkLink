@@ -3,6 +3,7 @@ import { Response } from "express";
 import { clientUnauthorized, genericError, noClientIdError } from "../../api";
 import { Auth, AuthModel } from "../../models";
 import { getClientId } from "./getClientId";
+import { sendError } from "./sendError";
 import { checkIfTokenExpired } from "./tokenLifespan";
 
 export const executeAuthorized = (
@@ -12,34 +13,35 @@ export const executeAuthorized = (
 ) => {
   const clientId = getClientId(authHeader);
 
-  if (!clientId) {
-    return res.status(401).json(noClientIdError);
-  }
+  if (clientId) {
+    Auth.findOne({ clientId })
+      .sort({ timestamp: -1 })
+      .then(async authData => {
+        if (authData)
+          try {
+            const isTokenValid = await checkIfTokenExpired(authData, clientId);
 
-  return Auth.findOne({ clientId })
-    .sort({ timestamp: -1 })
-    .then(async authData => {
-      if (authData)
-        try {
-          const isTokenValid = await checkIfTokenExpired(authData, clientId);
-
-          if (isTokenValid) {
-            return await execute(authData);
+            if (isTokenValid) {
+              execute(authData);
+            } else {
+              sendError(res, clientUnauthorized);
+            }
+          } catch (error) {
+            console.error("executeAuthorized", error);
+            sendError(res, genericError);
           }
-
-          return res.status(401).json(clientUnauthorized);
-        } catch (error) {
-          console.error("executeAuthorized", error);
-          return res.status(500).json(genericError);
+        else {
+          sendError(res, {
+            errorCode: 404,
+            errorKey: "database.no.result",
+            errorMessage: "Unauthorized",
+          });
         }
-      else {
-        return res.status(401).json({
-          errorCode: "database.no.result",
-          errorMessage: "Unauthorized",
-        });
-      }
-    })
-    .catch(error => {
-      return res.status(500).json(error);
-    });
+      })
+      .catch(error => {
+        sendError(res, error);
+      });
+  } else {
+    sendError(res, noClientIdError);
+  }
 };

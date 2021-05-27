@@ -22,8 +22,6 @@ export const fetchAccounts = async (
       },
     },
   );
-  const [accounts, error] = await handleResponse<V2.Accounts.Response>(response);
 
-  if (error || !accounts) return;
-  return accounts;
+  return await handleResponse<V2.Accounts.Response>(response);
 };

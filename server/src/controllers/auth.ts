@@ -3,13 +3,14 @@ import { RequestHandler } from "express";
 import { clientUnauthorized, fetchToken, noClientIdError } from "../api";
 import { Auth } from "../models";
 import { checkIfTokenExpired, executeAuthorized, getClientId } from "./helpers";
+import { sendError } from "./helpers/sendError";
 
 export const authorize: RequestHandler = async (req, res) => {
   const { code } = req.body;
   const clientId = getClientId(req.headers.authorization);
 
   if (!clientId) {
-    return res.status(401).json(noClientIdError);
+    return sendError(res, noClientIdError);
   }
   const token = await fetchToken(clientId, code);
 
@@ -23,14 +24,14 @@ export const authorize: RequestHandler = async (req, res) => {
     return res.sendStatus(200);
   }
 
-  return res.status(401).json(clientUnauthorized);
+  return sendError(res, clientUnauthorized);
 };
 
 export const autoAuth: RequestHandler = async (req, res) => {
   const clientId = getClientId(req.headers.authorization);
 
   if (!clientId) {
-    return res.status(401).json(noClientIdError);
+    return sendError(res, noClientIdError);
   }
   executeAuthorized(res, req.headers.authorization, async token => {
     const ok = await checkIfTokenExpired(token, clientId);

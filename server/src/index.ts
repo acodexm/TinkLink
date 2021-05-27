@@ -45,16 +45,25 @@ app.use(
   }),
 );
 
+app.post("/api/authorize", authorize);
 app.post("/api/search", search);
+
 app.get("/api/transactions", getTransactions);
 app.get("/api/accounts", getAccountList);
 app.get("/api/account", getAccount);
-app.post("/api/authorize", authorize);
 app.get("/api/autoAuth", autoAuth);
 app.get("/api/aggregate", getAggregatedTransactions);
 app.get("/api", (req, res) => {
   res.send(
-    "available api: /api/search, /api/transactions, /api/account, /api/accounts, /api/authorize, ",
+    `available api: ${[
+      "/api/authorize",
+      "/api/search",
+      "/api/transactions",
+      "/api/accounts",
+      "/api/account",
+      "/api/autoAuth",
+      "/api/aggregate",
+    ].join(", ")}`,
   );
 });
 const buildDir = path.join(`${process.cwd()}/build`);
