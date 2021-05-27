@@ -1,16 +1,25 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import { useHistory, useLocation } from "react-router";
 
-const StyledHeader = styled.header`
-  height: 50px;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 0 0 5rem 1rem;
-  background: ${({ theme }) => theme.colors.tintedBackground};
-  box-shadow: 2px 2px ${({ theme }) => theme.colors.primary};
-`;
+import paths from "../../const/paths";
+import { Link } from "../StyledComponents/Link";
+import { StyledHeader } from "./style";
 
-const Header: FC = ({ children }) => <StyledHeader>{children}</StyledHeader>;
+const isMainPageOrAuth = (pathname: string) => {
+  if (pathname === "" || pathname === paths.Auth) return true;
+  return new RegExp(`${paths.Main}(/.*)?`).test(pathname);
+};
+const Header: FC = ({ children }) => {
+  const { pathname } = useLocation();
+  const { goBack } = useHistory();
+  const renderBackButton = isMainPageOrAuth(pathname) ? null : <Link onClick={goBack}>{"<"}</Link>;
+
+  return (
+    <StyledHeader>
+      {renderBackButton}
+      {children}
+    </StyledHeader>
+  );
+};
 
 export default Header;

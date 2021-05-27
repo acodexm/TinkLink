@@ -1,8 +1,8 @@
 import React from "react";
 import { Col } from "styled-bootstrap-grid";
-import styled from "styled-components";
 
 import { formatMoney } from "../../../helpers/format";
+import { AccountCard } from "./styled";
 
 type Props = {
   name: string;
@@ -10,19 +10,6 @@ type Props = {
   accountId: string;
   onClick: () => void;
 };
-const AccountCard = styled.div`
-  padding: 1rem 0.5rem;
-  margin: 1rem auto;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  background: ${({ theme }) => theme.colors.tintedBackground};
-  box-shadow: 2px 2px ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.textPrimary};
-`;
 const AccountItem: React.VFC<Props> = ({ onClick, name, balance }) => {
   return (
     <Col xs={12} lg={6}>

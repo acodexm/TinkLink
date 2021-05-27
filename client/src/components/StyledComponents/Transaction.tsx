@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { hoverEffect } from "./styled";
+
 export const Transaction = styled.div`
   padding: 1rem;
   margin: 1rem 0;
@@ -10,4 +12,5 @@ export const Transaction = styled.div`
   background: ${({ theme }) => theme.colors.tintedBackground};
   box-shadow: 2px 2px ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.textPrimary};
+  ${hoverEffect}
 `;

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { hoverEffect } from "./styled";
+
 export const Button = styled.button<{ rtl?: boolean }>`
   margin: auto;
   min-width: 70px;
@@ -12,4 +14,5 @@ export const Button = styled.button<{ rtl?: boolean }>`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   text-align: center;
   color: ${({ theme, disabled }) => (disabled ? theme.colors.disabled : theme.colors.textBtn)};
+  ${hoverEffect}
 `;

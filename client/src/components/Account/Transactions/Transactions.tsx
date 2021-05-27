@@ -1,23 +1,13 @@
 import React from "react";
-import styled from "styled-components";
 
 import { formatDate, formatMoney } from "../../../helpers/format";
-import MerchantImage from "../../MerchantImage/MerchantImage";
+import MerchantImage from "../../MerchantImage";
 import { Transaction } from "../../StyledComponents/Transaction";
+import { Money, TransactionImage } from "./styled";
 
 interface TransactionsProps {
   transactions: V2.Transactions.Transaction[];
 }
-const TransactionImage = styled.div`
-  width: 100px;
-`;
-const Money = styled.span`
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  font-size: ${({ theme }) => theme.fontSizes.bigger};
-  color: ${({ theme }) => theme.colors.primary};
-  text-align: center;
-  align-self: center;
-`;
 const Transactions: React.VFC<TransactionsProps> = ({ transactions }) => {
   if (transactions.length === 0)
     return (

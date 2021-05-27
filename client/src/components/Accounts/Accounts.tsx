@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { VFC } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 import { Row } from "styled-bootstrap-grid";
@@ -6,9 +6,9 @@ import { Row } from "styled-bootstrap-grid";
 import { getAccounts } from "../../api/fetchAccounts";
 import { LoadingHandler } from "../../components/LoadingHandler";
 import paths from "../../const/paths";
-import { AccountItem } from "./AccountItem";
+import AccountItem from "./AccountItem";
 
-const Accounts: FC = () => {
+const Accounts: VFC = () => {
   //no more than 30 accounts :) unless you own all banks accounts in the country xD
   const { data, isError, isLoading } = useQuery(["accounts"], () => getAccounts({ pageSize: 30 }));
   const { push } = useHistory();
@@ -17,7 +17,7 @@ const Accounts: FC = () => {
   };
 
   return (
-    <LoadingHandler error={isError} loading={isLoading}>
+    <LoadingHandler error={isError} loading={isLoading} size={100}>
       <Row justifyContent={"between"}>
         {data && (
           <>

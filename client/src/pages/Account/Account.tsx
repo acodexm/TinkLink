@@ -2,8 +2,7 @@ import React, { useMemo } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
-import { getAccount } from "../../api/fetchAccount";
-import { getAccounts } from "../../api/fetchAccounts";
+import { getAccount, getAccounts } from "../../api";
 import { PaginationQuery } from "../../api/helpers/types";
 import { AccountDetails } from "../../components/Account";
 import { LoadingHandler } from "../../components/LoadingHandler";

@@ -1,11 +1,5 @@
 import React, { Component, ErrorInfo } from "react";
-import styled from "styled-components";
-
-const Error = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
+import { Container, Row } from "styled-bootstrap-grid";
 
 class ErrorBoundary extends Component {
   state = { error: null, info: null };
@@ -19,7 +13,13 @@ class ErrorBoundary extends Component {
 
     if (!error) return this.props.children;
     console.error(info, error);
-    return <Error>Error occurred :(</Error>;
+    return (
+      <Container>
+        <Row justifyContent={"center"} alignItems={"center"}>
+          Error occurred :(
+        </Row>
+      </Container>
+    );
   }
 }
 

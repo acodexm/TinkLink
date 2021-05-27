@@ -2,8 +2,8 @@ import * as React from "react";
 import { useQuery } from "react-query";
 import { Container } from "styled-bootstrap-grid";
 
-import { getAutoAuth } from "../api/fetchAutoAuth";
-import AuthLink from "../components/AuthLink/AuthLink";
+import { getAutoAuth } from "../api";
+import AuthLink from "../components/AuthLink";
 import { Header } from "../components/Header";
 import { Link } from "../components/StyledComponents/Link";
 

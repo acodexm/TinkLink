@@ -10,7 +10,7 @@ const FavoriteMerchants: React.VFC = () => {
   const { isLoading, isError, data } = useQuery(["aggregate"], () => getAggregatedMerchants());
 
   return (
-    <LoadingHandler loading={isLoading} error={isError}>
+    <LoadingHandler loading={isLoading} error={isError} spinner={false} size={300}>
       <Row justifyContent={"between"}>
         {data && data.map(merchant => <Merchant key={merchant.category} merchant={merchant} />)}
       </Row>

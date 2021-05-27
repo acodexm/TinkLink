@@ -1,29 +1,8 @@
 import React, { memo } from "react";
-import styled from "styled-components";
 
-import cardOperation from "../../assets/credit-card.svg";
-import transfer from "../../assets/currency-exchange.svg";
-import defaultOperation from "../../assets/flying-money.svg";
-import payment from "../../assets/money.svg";
-import fee from "../../assets/tax.svg";
-import withdraw from "../../assets/withdrawal.svg";
+import { StyledImg, Title } from "./static";
+import { KNOWN_TYPES } from "./style";
 
-const KNOWN_TYPES: Record<string, string> = {
-  transfer,
-  "card operation": cardOperation,
-  fee,
-  payment,
-  withdraw,
-  default: defaultOperation,
-};
-const StyledImg = styled.img`
-  border-radius: 50%;
-`;
-const Title = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.normal};
-  margin-top: 1rem;
-  text-transform: capitalize;
-`;
 const MerchantImage: React.VFC<{
   info: MerchantInformation;
   width: number;

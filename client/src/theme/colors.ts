@@ -2,6 +2,7 @@ type EnumLiteralsOf<T> = T[keyof T];
 
 const Pallette = Object.freeze({
   primary: "#427783",
+  secondary: "#808080",
   background: "#FFFFFF",
   tintedBackground: "#F0F5F5",
   buttonBg: "#427783",

@@ -2,16 +2,14 @@ import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 
-import { getAutoAuth } from "../../api/fetchAutoAuth";
-import AuthLink from "../../components/AuthLink/AuthLink";
+import { getAutoAuth } from "../../api";
+import AuthLink from "../../components/AuthLink";
 import paths from "../../const/paths";
 
-export interface AuthProps {}
-
-const Auth: React.VFC<AuthProps> = () => {
+const Auth: React.VFC = () => {
   const { data } = useQuery(["autoAuth"], getAutoAuth, { retry: false });
   const { push } = useHistory();
-  const [success, error] = data ?? [];
+  const [success] = data ?? [];
 
   useEffect(() => {
     console.info(success);

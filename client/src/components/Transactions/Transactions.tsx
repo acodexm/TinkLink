@@ -22,7 +22,7 @@ const Transactions: React.VFC<Props> = ({ accountId }) => {
 
   return (
     <>
-      <LoadingHandler loading={isLoading} error={isError}>
+      <LoadingHandler loading={isLoading} error={isError} size={200}>
         <Row justifyContent={"center"}>
           <Col col={10}>
             {data &&
