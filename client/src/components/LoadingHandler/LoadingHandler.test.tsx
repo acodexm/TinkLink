@@ -6,12 +6,12 @@ import LoadingHandler from "./LoadingHandler";
 describe("test loading handler", () => {
   beforeAll(() => cleanup());
   test("Hide children until its safe to render", () => {
-    const { getByTestId, rerender } = render(
+    const { queryByTestId, rerender } = render(
       <LoadingHandler error={false} loading={true} preventDisplayContent={true}>
         <div>anything</div>
       </LoadingHandler>,
     );
-    const content = getByTestId("content");
+    const content = queryByTestId("content");
 
     expect(content).toBeTruthy();
     rerender(
@@ -22,45 +22,45 @@ describe("test loading handler", () => {
     expect(content).toHaveStyle("visibility: visible");
   });
   test("Shows loading", () => {
-    const { getByTestId } = render(
+    const { queryByTestId } = render(
       <LoadingHandler error={false} loading={true}>
         <div>anything</div>
       </LoadingHandler>,
     );
-    const loading = getByTestId("loading");
-    const content = getByTestId("content");
-    const error = getByTestId("error");
+    const loading = queryByTestId("loading");
+    const content = queryByTestId("content");
+    const error = queryByTestId("error");
 
     expect(content).toHaveStyle("visibility: hidden");
-    expect(loading).toHaveStyle("visibility: visible");
-    expect(error).toHaveStyle("visibility: hidden");
+    expect(loading).toBeInTheDocument();
+    expect(error).not.toBeInTheDocument();
   });
   test("Shows error", async () => {
-    const { getByTestId } = render(
+    const { queryByTestId } = render(
       <LoadingHandler error={true} loading={false}>
         <div>anything</div>
       </LoadingHandler>,
     );
-    const content = getByTestId("content");
-    const error = getByTestId("error");
-    const loading = getByTestId("loading");
+    const content = queryByTestId("content");
+    const error = queryByTestId("error");
+    const loading = queryByTestId("loading");
 
     expect(content).toHaveStyle("visibility: hidden");
-    expect(loading).toHaveStyle("visibility: hidden");
-    expect(error).toHaveStyle("visibility: visible");
+    expect(loading).not.toBeInTheDocument();
+    expect(error).toBeInTheDocument();
   });
   test("Shows success", async () => {
-    const { getByTestId } = render(
+    const { queryByTestId } = render(
       <LoadingHandler error={false} loading={false}>
         <div>anything</div>
       </LoadingHandler>,
     );
-    const content = getByTestId("content");
-    const loading = getByTestId("loading");
-    const error = getByTestId("error");
+    const content = queryByTestId("content");
+    const loading = queryByTestId("loading");
+    const error = queryByTestId("error");
 
     expect(content).toHaveStyle("visibility: visible");
-    expect(loading).toHaveStyle("visibility: hidden");
-    expect(error).toHaveStyle("visibility: hidden");
+    expect(loading).not.toBeInTheDocument();
+    expect(error).not.toBeInTheDocument();
   });
 });

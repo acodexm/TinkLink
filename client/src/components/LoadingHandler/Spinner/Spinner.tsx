@@ -13,28 +13,14 @@ const spin = keyframes`
       transform: rotate(359deg);
     }
 `;
-const StyledSpinner = styled.img<{ hide?: boolean }>`
+const StyledSpinner = styled.img`
   overflow: hidden;
-  background: none;
   position: absolute;
-  display: flex;
-  flex: 1;
-  top: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
   animation: ${spin} 1.5s infinite linear;
-  visibility: ${({ hide }) => (hide ? "hidden" : "visible")};
 `;
 
-export const Spinner: VFC<{ width?: number; loading?: boolean }> = ({ width = 50, loading }) => (
-  <StyledSpinner
-    src={spinner}
-    width={width}
-    hide={!loading}
-    alt={"Loading"}
-    data-testid={"loading"}
-  />
+export const Spinner: VFC<{ width?: number }> = ({ width = 50 }) => (
+  <StyledSpinner src={spinner} width={width} alt={"Loading"} data-testid={"loading"} />
 );
 
 export default Spinner;
