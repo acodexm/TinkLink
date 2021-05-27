@@ -12,7 +12,7 @@ export const checkIfTokenExpired = async ({ token, timestamp }: AuthModel, clien
   const [, error] = await fetchSearch({ transactionId: "ping" }, token);
 
   //ping server to check if current token is indeed valid
-  console.info("ping server status:", error?.errorCode);
+  console.info("ping server status:", error?.errorCode ?? "authorized");
   return error?.errorCode !== 401;
 };
 

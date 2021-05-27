@@ -14,8 +14,6 @@ const spin = keyframes`
     }
 `;
 const StyledSpinner = styled.img<{ hide?: boolean }>`
-  width: 50px;
-  height: 50px;
   overflow: hidden;
   background: none;
   position: absolute;
@@ -29,7 +27,7 @@ const StyledSpinner = styled.img<{ hide?: boolean }>`
   visibility: ${({ hide }) => (hide ? "hidden" : "visible")};
 `;
 
-export const Spinner: VFC<{ width: number; loading?: boolean }> = ({ width, loading }) => (
+export const Spinner: VFC<{ width?: number; loading?: boolean }> = ({ width = 50, loading }) => (
   <StyledSpinner
     src={spinner}
     width={width}

@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Col, Row } from "styled-bootstrap-grid";
+import React from "react";
 import styled from "styled-components";
 
 import { formatDate, formatMoney } from "../../../helpers/format";

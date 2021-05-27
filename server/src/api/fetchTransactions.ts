@@ -5,14 +5,14 @@ import { handleResponse } from "../controllers/helpers";
 import MerchantMapper from "../services/MerchantMapper";
 import { tinkBaseUrl } from "../static";
 import { dataNotFound, v2 } from "./consts";
-import { ValidResponse } from "./types";
+import { ValidResponsePromise } from "./types";
 
 export const fetchTransactions = async (
   accountId: string,
   pageSize: string,
   pageToken: string,
   token: V1.Auth.Response,
-): ValidResponse<V2.Transactions.Response> => {
+): ValidResponsePromise<V2.Transactions.Response> => {
   const response = await fetch(
     `${tinkBaseUrl}${v2}/transactions${qs.stringify(
       { pageSize, pageToken, accountIdIn: [accountId] },

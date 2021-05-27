@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import { Row } from "styled-bootstrap-grid";
 
-import { PaginationQuery } from "../../api/types";
+import { PaginationQuery } from "../../api/helpers/types";
 import { QueryUpdater } from "../../helpers/hooks/useQueryAsState";
 import { Button } from "../StyledComponents/Button";
 import { reducer } from "./reducer";

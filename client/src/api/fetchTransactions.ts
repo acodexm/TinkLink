@@ -1,6 +1,8 @@
 import qs from "qs";
 
-import { handleRequest } from "../handleRequest";
+import { handleError } from "./helpers/handleError";
+import { handleRequest } from "./helpers/handleRequest";
+import { handleResponse } from "./helpers/handleResponse";
 
 type TransactionRequest = {
   accountId?: string;
@@ -9,10 +11,9 @@ type TransactionRequest = {
 };
 
 export const getTransactions = async (queryParams: TransactionRequest) => {
-  const [data, error] = await handleRequest<V2.Transactions.Response>(
+  const response = await handleRequest(
     `/transactions${qs.stringify(queryParams, { skipNulls: true, addQueryPrefix: true })}`,
   );
 
-  if (error) return null;
-  return data;
+  return await handleResponse<V2.Transactions.Response>(response).then(handleError);
 };

@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 import { Row } from "styled-bootstrap-grid";
 
-import { getAccounts } from "../../api/account/getAccounts";
+import { getAccounts } from "../../api/fetchAccounts";
 import { LoadingHandler } from "../../components/LoadingHandler";
 import paths from "../../const/paths";
 import { AccountItem } from "./AccountItem";

@@ -2,8 +2,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import { Col, Row } from "styled-bootstrap-grid";
 
-import { getTransactions } from "../../api/transactions/getTransactions";
-import { PaginationQuery } from "../../api/types";
+import { getTransactions } from "../../api";
+import { PaginationQuery } from "../../api/helpers/types";
 import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";
 import { LoadingHandler } from "../LoadingHandler";
 import Pagination from "../Pagination";

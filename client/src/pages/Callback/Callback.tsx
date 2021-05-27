@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 
-import { getAuthorized } from "../../api/auth/getAuthorized";
+import { getAuthorized } from "../../api/fetchAuthorized";
 import { LoadingHandler } from "../../components/LoadingHandler";
 import { Button } from "../../components/StyledComponents/Button";
 import paths from "../../const/paths";

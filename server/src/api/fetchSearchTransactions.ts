@@ -1,12 +1,12 @@
 import MerchantMapper from "../services/MerchantMapper";
 import { dataNotFound } from "./consts";
 import { fetchSearch } from "./fetchSearch";
-import { ValidResponse } from "./types";
+import { ValidResponsePromise } from "./types";
 
 export const fetchSearchTransactions = async (
   searchQuery: V1.Search.Query,
   token: V1.Auth.Response,
-): ValidResponse<V1.Search.Response> => {
+): ValidResponsePromise<V1.Search.Response> => {
   const [searchData, error] = await fetchSearch(searchQuery, token);
 
   if (error) return [undefined, error];

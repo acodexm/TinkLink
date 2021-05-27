@@ -1,6 +1,8 @@
 import qs from "qs";
 
-import { handleRequest } from "../handleRequest";
+import { handleError } from "./helpers/handleError";
+import { handleRequest } from "./helpers/handleRequest";
+import { handleResponse } from "./helpers/handleResponse";
 
 type AccountResponseSuccess = {
   account: V1.Ballance.Response;
@@ -8,13 +10,12 @@ type AccountResponseSuccess = {
 };
 
 export const getAccount = async (accountId: string, pageSize: number, pageToken?: string) => {
-  const [data, error] = await handleRequest<AccountResponseSuccess>(
+  const response = await handleRequest(
     `/account${qs.stringify(
       { accountId, pageSize, pageToken },
       { skipNulls: true, addQueryPrefix: true },
     )}`,
   );
 
-  if (error) return null;
-  return data;
+  return await handleResponse<AccountResponseSuccess>(response).then(handleError);
 };

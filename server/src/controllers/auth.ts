@@ -12,7 +12,11 @@ export const authorize: RequestHandler = async (req, res) => {
   if (!clientId) {
     return sendError(res, noClientIdError);
   }
-  const token = await fetchToken(clientId, code);
+  const [token, error] = await fetchToken(clientId, code);
+
+  if (error) {
+    return sendError(res, error);
+  }
 
   if (token) {
     console.info("authorize", "saving token");

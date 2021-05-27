@@ -75,8 +75,6 @@ const BarsContainer = styled.div`
   }
 `;
 const LoadingBars = styled.div<{ loading?: boolean }>`
-  width: 200px;
-  height: 200px;
   overflow: hidden;
   background: none;
   position: absolute;

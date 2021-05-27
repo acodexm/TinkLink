@@ -1,20 +1,25 @@
 import React, { FunctionComponent } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import Bars from "./Bars/Bars";
 import Spinner from "./Spinner/Spinner";
 
-const Content = styled.div<{ "data-visible"?: boolean }>`
+const Content = styled.div<{ visible?: boolean }>`
   width: 100%;
   height: 100%;
-  visibility: ${props => (props["data-visible"] ? "visible" : "hidden")};
+  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
 `;
-const Error = styled.div<{ "data-error": boolean }>`
+const Error = styled.div<{ error: boolean }>`
   display: inline-block;
   position: absolute;
-  visibility: ${props => (props["data-error"] ? "visible" : "hidden")};
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  visibility: ${({ error }) => (error ? "visible" : "hidden")};
 `;
-const LoadingWrapper = styled.div<{ "data-loading": boolean }>`
+const LoadingWrapper = styled.div<{ size?: number }>`
+  min-width: ${({ size }) => size}px;
+  min-height: ${({ size }) => size}px;
   display: flex;
   position: relative;
   width: 100%;
@@ -29,8 +34,9 @@ interface OwnProps {
   loading: boolean;
   error: boolean;
   preventDisplayContent?: boolean;
-  style?: React.CSSProperties;
   spinner?: boolean;
+  className?: string;
+  size?: number;
 }
 
 type Props = OwnProps;
@@ -39,7 +45,8 @@ const LoadingHandler: FunctionComponent<Props> = ({
   loading,
   error,
   preventDisplayContent,
-  style,
+  className,
+  size = 50,
   spinner = true,
 }) => {
   const renderChildren = () => {
@@ -49,12 +56,12 @@ const LoadingHandler: FunctionComponent<Props> = ({
   };
 
   return (
-    <LoadingWrapper data-loading={loading} style={style}>
-      <Content data-testid="content" data-visible={!loading && !error}>
+    <LoadingWrapper className={className} size={size}>
+      <Content data-testid="content" visible={!loading && !error}>
         {renderChildren()}
       </Content>
-      {spinner ? <Spinner width={50} loading={loading} /> : <Bars loading={loading} />}
-      <Error data-error={error} data-testid="error">
+      {spinner ? <Spinner loading={loading} /> : <Bars loading={loading} />}
+      <Error error={error} data-testid="error">
         Failed to load content
       </Error>
     </LoadingWrapper>

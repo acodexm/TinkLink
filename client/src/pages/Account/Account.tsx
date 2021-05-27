@@ -2,9 +2,9 @@ import React, { useMemo } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
-import { getAccount } from "../../api/account/getAccount";
-import { getAccounts } from "../../api/account/getAccounts";
-import { PaginationQuery } from "../../api/types";
+import { getAccount } from "../../api/fetchAccount";
+import { getAccounts } from "../../api/fetchAccounts";
+import { PaginationQuery } from "../../api/helpers/types";
 import { AccountDetails } from "../../components/Account";
 import { LoadingHandler } from "../../components/LoadingHandler";
 import { useQueryAsState } from "../../helpers/hooks/useQueryAsState";

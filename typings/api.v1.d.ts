@@ -29,6 +29,8 @@ declare namespace V1 {
       queryString?: string;
       sort?: "DATE" | "SCORE" | "DATE" | "ACCOUNT" | "DESCRIPTION" | "AMOUNT" | "CATEGORY";
       startDate?: number;
+      transactionId?: string;
+      lastTransactionId?: string;
     }
 
     type CurrencyDenominatedAmount = Currency;

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PaginationQuery } from "../../api/types";
+import { PaginationQuery } from "../../api/helpers/types";
 import { formatMoney } from "../../helpers/format";
 import { QueryUpdater } from "../../helpers/hooks/useQueryAsState";
 import Pagination from "../Pagination";

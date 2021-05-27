@@ -1,4 +1,4 @@
-import { handleRequest } from "../handleRequest";
+import { handleRequest } from "./helpers/handleRequest";
 
 export const getAuthorized = (code: string | null) => {
   return handleRequest("/authorize", {

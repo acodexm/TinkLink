@@ -3,4 +3,5 @@ export type ResponseError = {
   errorCode: number;
   errorKey?: string;
 };
-export type ValidResponse<T> = Promise<[T | undefined, ResponseError | undefined]>;
+export type ValidResponse<T> = [T | undefined, ResponseError | undefined];
+export type ValidResponsePromise<T> = Promise<ValidResponse<T>>;
