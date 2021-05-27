@@ -35,13 +35,14 @@ React client is using Server API.
 
 
 ## Important developer notes 25.05.2021
-- ~~for now when staring project locally (yarn start) proxy cannot handle too long pageToken for paginated transactions. no issues using docker~~
-- a lot of tests are not written due to lack of time
-- a lot of styles are not finished due to lack of time
-- data aggregation could be stored in database instead of memory of the server
-- merchant mappings could be stored in database instead of memory of the server
-- app theme might change
-- client and server is prepared for data filtering and sorting and will be handled in the future
-- currently there is no redirect when authentication failed and will be handled in the future
-- there are no navigation buttons in header they will be added soon
-- not all errors are handled, there might occur some unexpected behaviors at this point
+
+- [x] ~~for now when staring project locally (yarn start) proxy cannot handle too long pageToken for paginated transactions. no issues using docker~~
+- [] a lot of tests are not written due to lack of time
+- [] ~~a lot~~ some of styles are not finished due to lack of time
+- [] data aggregation could be stored in database instead of memory of the server
+- [] merchant mappings could be stored in database instead of memory of the server
+- [] app theme might change
+- [] client and server is prepared for data filtering and sorting and will be handled in the future
+- [x] ~~currently there is no redirect when authentication failed and will be handled in the future~~
+- [x] ~~there are no navigation buttons in header they will be added soon~~
+- [x] ~~not all errors are handled, there might occur some unexpected behaviors at this point~~
