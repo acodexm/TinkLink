@@ -14,6 +14,7 @@ describe("test loading handler", () => {
     const content = queryByTestId("content");
 
     expect(content).toBeTruthy();
+    expect(content).toHaveStyle("visibility: hidden");
     rerender(
       <LoadingHandler error={false} loading={false} preventDisplayContent={true}>
         <div>anything</div>

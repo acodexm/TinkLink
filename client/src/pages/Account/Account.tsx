@@ -27,7 +27,7 @@ const Account: React.VFC = () => {
   }, [accounts.data, id]);
 
   return (
-    <LoadingHandler error={isError} loading={isLoading}>
+    <LoadingHandler error={isError} loading={isLoading} size={200}>
       {data && (
         <AccountDetails
           transactions={data.transactions}
